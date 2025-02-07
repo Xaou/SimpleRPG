@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test game</title>
+  <style>
+    
+    .container {
+      display: grid;
+      grid-template-columns: 250px 210px 200px 200px 300px;
+      height: 100vh; /* Full height of the viewport */
+    }
+
+    .zone-section, 
+    .crafting-section,
+    .tool-section {
+      padding: 10px;
+    }
+
+    .resource-section {
+      padding: 10px;
+      position: relative;
+    }
+
+    .resourceDisplay {
+      line-height: 1.5;
+      position: absolute;
+      top: 70px;
+    }
+
+    .ingredients-section {
+      padding: 10px;
+      position: relative;
+    }
+
+    .ingredients {
+      line-height: 1.5;
+      position: absolute;
+      top: 70px;
+      right: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      margin: 0;
+      background-color: #757575;
+    } 
+
+    .gatherButton {
+      font-size: 16px;
+      background-color: lightblue;
+      color: black;
+      border: none;
+      border-radius: 4px;
+      width: 150px;
+      height: 35px;
+      margin-bottom: 5px;
+    }
+
+    .craftButton {
+      font-size: 16px;
+      background-color: lightblue;
+      color: black;
+      border: none;
+      border-radius: 4px;
+      width: 200px;
+      height: 30px;
+      margin-bottom: 5px;
+    }
+
+    .craftConfirmButton {
+      display: block; 
+      width: 100%; 
+      font-size: 1.5em; 
+      margin: 20px 0; 
+      padding: 10px 20px; 
+      background-color: orange; 
+      color: black; 
+      border: none; 
+      border-radius: 4px; 
+      text-align: center; 
+    }
+
+    .craftConfirmButton:hover {
+      background-color: rgb(223, 145, 0);
+    }
+
+  </style>
+</head>
+<body>
+    <div class="container">
+      <div class="zone-section">
+        <h2>Forest</h2>
+        <div id="findings" style="margin-bottom: 5px;">You haven't found anything yet.</div>
+        <button class="gatherButton" id="forageButton">Barehand Forage</button>
+        <button class="gatherButton" id="gatherStickButton" style="display:none;">Gather Sticks</button>
+        <button class="gatherButton" id="gatherStoneButton" style="display:none;">Gather Stones</button>
+        <button class="gatherButton" id="gatherVineButton" style="display:none;">Gather Vines</button>
+      </div>
+      <div class="crafting-section">
+        <h2>Craftables</h2>
+        <button class="craftButton" id="craftAxeButton1">
+          Makeshift Axe
+        </button>
+        <button class="craftButton" id="craftPickButton1">
+          Makeshift Pick
+        </button>
+        <button class="craftButton" id="craftSickleButton1">
+          Makeshift Sickle
+        </button>
+      </div>
+      <div class="ingredients-section">
+        <button class="craftConfirmButton" id="craftConfirm">
+          Craft!
+        </button>
+        <p class="ingredients" id="craftingCost">Click an item to see cost!</p>
+      </div>
+      <div class="resource-section">
+        <h2>Resources</h2>
+        <p class="resourceDisplay" id="resourceTxt"> 
+          Sticks: 0<br>
+          Stones: 0<br>
+          Vines: 0<br>
+        </p>
+      </div>
+      <div class="tool-section">
+        <h2>Equipment</h2>
+        <p id="axeTxt" style="display:none;">
+          Makeshift Axe
+        </p>
+        <p id="pickTxt" style="display:none;">
+          Makeshift Pick
+        </p>
+        <p id="sickleTxt" style="display:none;">
+          Makeshift Sickle
+        </p>
+      </div>
+    </div>
+    
+    <script>
+        let stickAmt = 0;
+        let stoneAmt = 0;
+        let vineAmt = 0;
+
+        const forageButton = document.getElementById('forageButton');
+        const findings = document.getElementById('findings');
+        const resourcesTxt = document.getElementById('resourceTxt');
+        const makeshiftAxeButton = document.getElementById('craftAxeButton1');
+        const makeshiftPickButton = document.getElementById('craftPickButton1');
+        const makeshiftSickleButton = document.getElementById('craftSickleButton1');
+
+        const costDisplay = document.getElementById('craftingCost');
+
+        let forageCD = 1;
+
+        forageButton.addEventListener('click', function() {
+          let rnd = Math.random();  
+          if (rnd <= 0.25) {
+            findings.textContent = "You gather a stick.";
+            stickAmt += 1;
+            updateResources();
+          }
+          else if (rnd > 0.25 && rnd <= 0.5) {  
+            findings.textContent = "You gather a stone.";
+            stoneAmt += 1;
+            updateResources();
+          }
+          else if (rnd > 0.5 && rnd <= 0.75) {  
+            findings.textContent = "You gather a vine.";
+            vineAmt += 1;
+            updateResources();
+          }
+          else if (rnd > 0.75) { 
+            findings.textContent = "You found nothing.";
+          }
+            
+          let forageSeconds = forageCD;
+          forageButton.disabled = true;
+          forageButton.style.backgroundColor = 'rgb(36, 61, 61)';
+          forageButton.style.color = 'white';
+          forageButton.textContent = "Resting for " + forageSeconds + " sec";
+            
+          const interval = setInterval(function() {
+            forageSeconds--; 
+            if (forageSeconds <= 0) {
+              forageButton.disabled = false;  
+              forageButton.style.backgroundColor = 'lightblue';
+              forageButton.style.color = 'black';
+              forageButton.textContent = "Barehand Forage";
+              clearInterval(interval);  
+            }
+            else {
+              forageButton.textContent = "Resting for " + forageSeconds + " sec";
+            }
+          }, 1000); 
+        });
+        
+        const allCraftButtons = document.querySelectorAll('.craftButton');
+        let craftingQueue = "";
+
+        makeshiftAxeButton.addEventListener('click', function() { 
+          resetButtons();
+          makeshiftAxeButton.style.backgroundColor = 'lightskyblue';
+          costDisplay.innerHTML = "1 Stick<br>1 Stone<br>1 Vine";
+          craftingQueue = "makeshiftAxe";
+        });
+
+        makeshiftPickButton.addEventListener('click', function() { 
+          resetButtons();
+          makeshiftPickButton.style.backgroundColor = 'lightskyblue';
+          costDisplay.innerHTML = "2 Sticks<br>2 Stones<br>2 Vines";
+          craftingQueue = "makeshiftPick";
+        });
+
+        makeshiftSickleButton.addEventListener('click', function() { 
+          resetButtons();
+          makeshiftSickleButton.style.backgroundColor = 'lightskyblue';
+          costDisplay.innerHTML = "3 Sticks<br>3 Stones<br>3 Vines";
+          craftingQueue = "makeshiftSickle";
+        });
+
+        function resetButtons() {
+          allCraftButtons.forEach(function(btn) {
+            btn.style.backgroundColor = 'lightblue'; 
+          });
+        }
+
+        function updateResources() {
+          resourcesTxt.innerHTML = 
+          "Sticks: " + stickAmt + "<br>" +
+          "Stones: " + stoneAmt + "<br>" +
+          "Vines: " + vineAmt + "<br>";
+        }
+
+        const craftingButton = document.getElementById("craftConfirm");
+        let hasMakeshiftAxe = false;
+        let hasMakeshiftPick = false;
+        let hasMakeshiftSickle = false;
+
+        /* START OF CRAFTING BUTTON */
+        craftingButton.addEventListener('click', function() {
+          if (craftingQueue == "makeshiftAxe") {
+            if (stickAmt >= 1 && stoneAmt >= 1 && vineAmt >= 1) {
+              stickAmt -= 1;
+              stoneAmt -= 1;
+              vineAmt -= 1;
+              hasMakeshiftAxe = true;
+              makeshiftAxeButton.remove(); 
+              costDisplay.textContent = "Crafted!";
+              document.getElementById('axeTxt').style.display = 'block';
+              document.getElementById('gatherStickButton').style.display = 'block';
+            }
+            else {
+              costDisplay.textContent = "Not enough resources!";
+            }
+          }
+          else if (craftingQueue == "makeshiftPick") {
+            if (stickAmt >= 2 && stoneAmt >= 2 && vineAmt >= 2) {
+              stickAmt -= 2;
+              stoneAmt -= 2;
+              vineAmt -= 2;
+              hasMakeshiftPick = true;
+              makeshiftPickButton.remove(); 
+              costDisplay.textContent = "Crafted!";
+              document.getElementById('pickTxt').style.display = 'block';
+              document.getElementById('gatherStoneButton').style.display = 'block';
+            }
+            else {
+              costDisplay.textContent = "Not enough resources!";
+            }
+          }
+          else if (craftingQueue == "makeshiftSickle") {
+            if (stickAmt >= 3 && stoneAmt >= 3 && vineAmt >= 3) {
+              stickAmt -= 3;
+              stoneAmt -= 3;
+              vineAmt -= 3;
+              hasMakeshiftSickle = true;
+              makeshiftSickleButton.remove(); 
+              costDisplay.textContent = "Crafted!";
+              document.getElementById('sickleTxt').style.display = 'block';
+              document.getElementById('gatherVineButton').style.display = 'block';
+            }
+            else {
+              costDisplay.textContent = "Not enough resources!";
+            }
+          }
+
+          updateResources();
+          resetButtons();
+          craftingQueue = "";
+        });
+        /* END OF CRAFTING BUTTON */
+
+        const gatherSticks = document.getElementById('gatherStickButton');
+
+        
+
+        const gatherStones = document.getElementById('gatherStoneButton');
+
+
+
+        const gatherVines = document.getElementById('gatherVineButton');
+
+    </script>
+  </body>
+</html>
