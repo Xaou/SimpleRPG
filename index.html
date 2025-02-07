@@ -8,14 +8,21 @@
     
     .container {
       display: grid;
-      grid-template-columns: 250px 210px 200px 200px 300px;
+      grid-template-columns: 250px 210px 200px 180px 300px;
       height: 100vh; /* Full height of the viewport */
     }
 
-    .zone-section, 
-    .crafting-section,
+    .zone-section {
+      padding: 10px;
+    }
+
+    .crafting-section {
+      padding: 10px;
+    }
+
     .tool-section {
       padding: 10px;
+      position: relative;
     }
 
     .resource-section {
@@ -23,10 +30,22 @@
       position: relative;
     }
 
-    .resourceDisplay {
+    .stick-display, .axe-display {
       line-height: 1.5;
       position: absolute;
       top: 70px;
+    }
+
+    .stone-display, .pick-display {
+      line-height: 1.5;
+      position: absolute;
+      top: 95px;
+    }
+
+    .vine-display, .sickle-display {
+      line-height: 1.5;
+      position: absolute;
+      top: 120px;
     }
 
     .ingredients-section {
@@ -34,10 +53,24 @@
       position: relative;
     }
 
-    .ingredients {
+    .stick-cost-display {
       line-height: 1.5;
       position: absolute;
       top: 70px;
+      right: 0;
+    }
+
+    .stone-cost-display {
+      line-height: 1.5;
+      position: absolute;
+      top: 95px;
+      right: 0;
+    }
+
+    .vine-cost-display {
+      line-height: 1.5;
+      position: absolute;
+      top: 120px;
       right: 0;
     }
 
@@ -119,39 +152,42 @@
       </div>
       <div class="crafting-section">
         <h2>Craftables</h2>
-        <button class="craftButton" id="craftAxeButton1">
-          Makeshift Axe
-        </button>
-        <button class="craftButton" id="craftPickButton1">
-          Makeshift Pick
-        </button>
-        <button class="craftButton" id="craftSickleButton1">
-          Makeshift Sickle
-        </button>
+        <button class="craftButton" id="craftAxeButton1">Makeshift Axe</button>
+        <button class="craftButton" id="craftPickButton1">Makeshift Pick</button>
+        <button class="craftButton" id="craftSickleButton1">Makeshift Sickle</button>
+        <button class="craftButton" id="craftAxeButton2" style="display:none">Study Axe</button>
+        <button class="craftButton" id="craftPickButton2" style="display:none">Study Pick</button>
+        <button class="craftButton" id="craftSickleButton2" style="display:none">Study Sickle</button>
       </div>
       <div class="ingredients-section">
         <button class="craftConfirmButton" id="craftConfirm">
           Craft!
         </button>
-        <p class="ingredients" id="craftingCost">Click an item to see cost!</p>
+        <p class="stick-cost-display" id="stickCost">Click an item to see cost!</p>
+        <p class="stone-cost-display" id="stoneCost"></p>
+        <p class="vine-cost-display" id="vineCost"></p>
       </div>
       <div class="resource-section">
         <h2>Resources</h2>
-        <p class="resourceDisplay" id="resourceTxt"> 
-          Sticks: 0<br>
-          Stones: 0<br>
-          Vines: 0<br>
+        <p class="stick-display" id="stickTxt"> 
+          Sticks: 0/10
+        </p>
+        <p class="stone-display" id="stoneTxt"> 
+          Stones: 0/10
+        </p>
+        <p class="vine-display" id="vineTxt"> 
+          Vines: 0/10
         </p>
       </div>
       <div class="tool-section">
         <h2>Equipment</h2>
-        <p id="axeTxt" style="display:none;">
+        <p class="axe-display" id="axeTxt" style="display:none;">
           Makeshift Axe
         </p>
-        <p id="pickTxt" style="display:none;">
+        <p class="pick-display" id="pickTxt" style="display:none;">
           Makeshift Pick
         </p>
-        <p id="sickleTxt" style="display:none;">
+        <p class="sickle-display" id="sickleTxt" style="display:none;">
           Makeshift Sickle
         </p>
       </div>
@@ -159,14 +195,17 @@
 
     <footer class="sticky-footer">
       <div class="footer-content">
-          <p>Game by Xaou - Version 0.0.1</p>
+          <p>Game by Xaou - Version 0.0.2</p>
       </div>
   </footer>
     
     <script>
         let stickAmt = 0;
+        let stickCap = 10;
         let stoneAmt = 0;
+        let stoneCap = 10;
         let vineAmt = 0;
+        let vineCap = 10;
 
         const forageButton = document.getElementById('forageButton');
         const findings = document.getElementById('findings');
@@ -174,27 +213,43 @@
         const makeshiftAxeButton = document.getElementById('craftAxeButton1');
         const makeshiftPickButton = document.getElementById('craftPickButton1');
         const makeshiftSickleButton = document.getElementById('craftSickleButton1');
-
-        const costDisplay = document.getElementById('craftingCost');
+        const sturdyAxeButton = document.getElementById('craftAxeButton2');
+        const sturdyPickButton = document.getElementById('craftPickButton2');
+        const sturdySickleButton = document.getElementById('craftSickleButton2');
 
         let forageCD = 1;
 
         forageButton.addEventListener('click', function() {
           let rnd = Math.random();  
           if (rnd <= 0.25) {
-            findings.textContent = "You gather a stick.";
-            stickAmt += 1;
-            updateResources();
+            if (stickAmt < stickCap) {
+              findings.textContent = "You gather a stick.";
+              stickAmt += 1;
+              updateResources();
+            }
+            else {
+              findings.textContent = "No more stick storage.";
+            }
           }
-          else if (rnd > 0.25 && rnd <= 0.5) {  
-            findings.textContent = "You gather a stone.";
-            stoneAmt += 1;
-            updateResources();
+          else if (rnd > 0.25 && rnd <= 0.5) {
+            if (stoneAmt < stoneCap) {
+              findings.textContent = "You gather a stone.";
+              stoneAmt += 1;
+              updateResources();
+            }  
+            else {
+              findings.textContent = "No more stone storage.";
+            }
           }
           else if (rnd > 0.5 && rnd <= 0.75) {  
-            findings.textContent = "You gather a vine.";
-            vineAmt += 1;
-            updateResources();
+            if (vineAmt < vineCap) {
+              findings.textContent = "You gather a vine.";
+              vineAmt += 1;
+              updateResources();
+            }
+            else {
+              findings.textContent = "No more vine storage.";
+            }
           }
           else if (rnd > 0.75) { 
             findings.textContent = "You found nothing.";
@@ -220,30 +275,211 @@
             }
           }, 1000); 
         });
-        
+        /* END OF FORAGE BUTTON */
+
+        const gatherSticks = document.getElementById('gatherStickButton');
+        let gatherSicksCD = 5;
+
+        gatherSticks.addEventListener('click', function() {
+          if (stickAmt < stickCap) {
+            if (hasSturdyAxe == true) {
+              findings.textContent = "You gather some sticks.";
+              stickAmt += 2;
+              if (stickAmt > stickCap) {
+                stickAmt = stickCap;
+              }
+            }
+            else {
+              findings.textContent = "You gather a stick.";
+              stickAmt += 1;
+            }
+            updateResources();
+          }
+          else {
+            findings.textContent = "No more stick storage.";
+          }
+
+          let stickSeconds = gatherSicksCD;
+          gatherSticks.disabled = true;
+          gatherSticks.style.backgroundColor = 'rgb(36, 61, 61)';
+          gatherSticks.style.color = 'white';
+          gatherSticks.textContent = "Resting for " + stickSeconds + " sec";
+            
+          const interval = setInterval(function() {
+            stickSeconds--; 
+            if (stickSeconds <= 0) {
+              gatherSticks.disabled = false;  
+              gatherSticks.style.backgroundColor = 'lightblue';
+              gatherSticks.style.color = 'black';
+              gatherSticks.textContent = "Gather Sticks";
+              clearInterval(interval);  
+            }
+            else {
+              gatherSticks.textContent = "Resting for " + stickSeconds + " sec";
+            }
+          }, 1000); 
+        })
+        /* END OF STICK GATHER BUTTON */
+
+        const gatherStones = document.getElementById('gatherStoneButton');
+        let gatherStonesCD = 5;
+
+        gatherStones.addEventListener('click', function() {
+          if (stoneAmt < stoneCap) {
+            if (hasSturdyPick == true) {
+              findings.textContent = "You gather some stones.";
+              stoneAmt += 2;
+              if (stoneAmt > stoneCap) {
+                stoneAmt = stoneCap;
+              }
+            }
+            else {
+              findings.textContent = "You gather a stone.";
+              stoneAmt += 1;
+            }
+            updateResources();
+          }
+          else {
+            findings.textContent = "No more stone storage.";
+          }
+
+          let stoneSeconds = gatherStonesCD;
+          gatherStones.disabled = true;
+          gatherStones.style.backgroundColor = 'rgb(36, 61, 61)';
+          gatherStones.style.color = 'white';
+          gatherStones.textContent = "Resting for " + stoneSeconds + " sec";
+            
+          const interval = setInterval(function() {
+            stoneSeconds--; 
+            if (stoneSeconds <= 0) {
+              gatherStones.disabled = false;  
+              gatherStones.style.backgroundColor = 'lightblue';
+              gatherStones.style.color = 'black';
+              gatherStones.textContent = "Gather Stones";
+              clearInterval(interval);  
+            }
+            else {
+              gatherStones.textContent = "Resting for " + stoneSeconds + " sec";
+            }
+          }, 1000); 
+        })
+        /* END OF STONE GATHER BUTTON */
+
+        const gatherVines = document.getElementById('gatherVineButton');
+        let gatherVinesCD = 5;
+
+        gatherVines.addEventListener('click', function() {
+          if (vineAmt < vineCap) {
+            if (hasSturdySickle == true) {
+              findings.textContent = "You gather some vines.";
+              vineAmt += 2;
+              if (vineAmt > vineCap) {
+                vineAmt = vineCap;
+              }
+            }
+            else {
+              findings.textContent = "You gather a vine.";
+              vineAmt += 1;
+            }
+            updateResources();
+          }
+          else {
+            findings.textContent = "No more vine storage.";
+          }
+
+          let vineSeconds = gatherVinesCD;
+          gatherVines.disabled = true;
+          gatherVines.style.backgroundColor = 'rgb(36, 61, 61)';
+          gatherVines.style.color = 'white';
+          gatherVines.textContent = "Resting for " + vineSeconds + " sec";
+            
+          const interval = setInterval(function() {
+            vineSeconds--; 
+            if (vineSeconds <= 0) {
+              gatherVines.disabled = false;  
+              gatherVines.style.backgroundColor = 'lightblue';
+              gatherVines.style.color = 'black';
+              gatherVines.textContent = "Gather Vines";
+              clearInterval(interval);  
+            }
+            else {
+              gatherVines.textContent = "Resting for " + vineSeconds + " sec";
+            }
+          }, 1000); 
+        })
+        /* END OF VINE GATHER BUTTON */
+
         const allCraftButtons = document.querySelectorAll('.craftButton');
         let craftingQueue = "";
+        const stickCostDisplay = document.getElementById('stickCost');
+        const stoneCostDisplay = document.getElementById('stoneCost');
+        const vineCostDisplay = document.getElementById('vineCost');
 
         makeshiftAxeButton.addEventListener('click', function() { 
           resetButtons();
           makeshiftAxeButton.style.backgroundColor = 'lightskyblue';
-          costDisplay.innerHTML = "1 Stick<br>1 Stone<br>1 Vine";
+          resetCostDisplays();
+          stickCostDisplay.textContent = "1 Stick";
+          stoneCostDisplay.textContent = "1 Stone";
+          vineCostDisplay.textContent = "1 Vine";
           craftingQueue = "makeshiftAxe";
         });
 
         makeshiftPickButton.addEventListener('click', function() { 
           resetButtons();
           makeshiftPickButton.style.backgroundColor = 'lightskyblue';
-          costDisplay.innerHTML = "2 Sticks<br>2 Stones<br>2 Vines";
+          resetCostDisplays();
+          stickCostDisplay.textContent = "2 Sticks";
+          stoneCostDisplay.textContent = "1 Stone";
+          vineCostDisplay.textContent = "1 Vine";
           craftingQueue = "makeshiftPick";
         });
 
         makeshiftSickleButton.addEventListener('click', function() { 
           resetButtons();
           makeshiftSickleButton.style.backgroundColor = 'lightskyblue';
-          costDisplay.innerHTML = "3 Sticks<br>3 Stones<br>3 Vines";
+          resetCostDisplays();
+          stickCostDisplay.textContent = "3 Sticks";
+          stoneCostDisplay.textContent = "2 Stones";
+          vineCostDisplay.textContent = "1 Vine";
           craftingQueue = "makeshiftSickle";
         });
+
+        sturdyAxeButton.addEventListener('click', function() { 
+          resetButtons();
+          sturdyAxeButton.style.backgroundColor = 'lightskyblue';
+          resetCostDisplays();
+          stickCostDisplay.textContent = "5 Sticks";
+          stoneCostDisplay.textContent = "3 Stones";
+          vineCostDisplay.textContent = "2 Vines";
+          craftingQueue = "sturdyAxe";
+        });
+
+        sturdyPickButton.addEventListener('click', function() { 
+          resetButtons();
+          sturdyPickButton.style.backgroundColor = 'lightskyblue';
+          resetCostDisplays();
+          stickCostDisplay.textContent = "5 Sticks";
+          stoneCostDisplay.textContent = "5 Stones";
+          vineCostDisplay.textContent = "3 Vines";
+          craftingQueue = "sturdyPick";
+        });
+
+        sturdySickleButton.addEventListener('click', function() { 
+          resetButtons();
+          sturdySickleButton.style.backgroundColor = 'lightskyblue';
+          resetCostDisplays();
+          stickCostDisplay.textContent = "4 Sticks";
+          stoneCostDisplay.textContent = "4 Stones";
+          vineCostDisplay.textContent = "4 Vines";
+          craftingQueue = "sturdySickle";
+        });
+
+        function resetCostDisplays() {
+          stickCostDisplay.textContent = "";
+          stoneCostDisplay.textContent = "";
+          vineCostDisplay.textContent = "";
+        }
 
         function resetButtons() {
           allCraftButtons.forEach(function(btn) {
@@ -252,16 +488,18 @@
         }
 
         function updateResources() {
-          resourcesTxt.innerHTML = 
-          "Sticks: " + stickAmt + "<br>" +
-          "Stones: " + stoneAmt + "<br>" +
-          "Vines: " + vineAmt + "<br>";
+          document.getElementById('stickTxt').textContent = "Sticks: " + stickAmt + "/" + stickCap;
+          document.getElementById('stoneTxt').textContent = "Stones: " + stoneAmt + "/" + stoneCap;
+          document.getElementById('vineTxt').textContent = "Vines: " + vineAmt + "/" + vineCap;
         }
 
         const craftingButton = document.getElementById("craftConfirm");
         let hasMakeshiftAxe = false;
         let hasMakeshiftPick = false;
         let hasMakeshiftSickle = false;
+        let hasSturdyAxe = false;
+        let hasSturdyPick = false;
+        let hasSturdySickle = false;
 
         /* START OF CRAFTING BUTTON */
         craftingButton.addEventListener('click', function() {
@@ -272,60 +510,116 @@
               vineAmt -= 1;
               hasMakeshiftAxe = true;
               makeshiftAxeButton.remove(); 
-              costDisplay.textContent = "Crafted!";
+              resetCostDisplays();
+              stickCostDisplay.textContent = "Crafted!";
               document.getElementById('axeTxt').style.display = 'block';
               document.getElementById('gatherStickButton').style.display = 'block';
             }
             else {
-              costDisplay.textContent = "Not enough resources!";
+              resetCostDisplays();
+              stickCostDisplay.textContent = "Not enough resources!";
             }
           }
           else if (craftingQueue == "makeshiftPick") {
-            if (stickAmt >= 2 && stoneAmt >= 2 && vineAmt >= 2) {
+            if (stickAmt >= 2 && stoneAmt >= 1 && vineAmt >= 1) {
               stickAmt -= 2;
-              stoneAmt -= 2;
-              vineAmt -= 2;
+              stoneAmt -= 1;
+              vineAmt -= 1;
               hasMakeshiftPick = true;
               makeshiftPickButton.remove(); 
-              costDisplay.textContent = "Crafted!";
+              resetCostDisplays();
+              stickCostDisplay.textContent = "Crafted!";
               document.getElementById('pickTxt').style.display = 'block';
               document.getElementById('gatherStoneButton').style.display = 'block';
             }
             else {
-              costDisplay.textContent = "Not enough resources!";
+              resetCostDisplays();
+              stickCostDisplay.textContent = "Not enough resources!";
             }
           }
           else if (craftingQueue == "makeshiftSickle") {
-            if (stickAmt >= 3 && stoneAmt >= 3 && vineAmt >= 3) {
+            if (stickAmt >= 3 && stoneAmt >= 2 && vineAmt >= 1) {
               stickAmt -= 3;
-              stoneAmt -= 3;
-              vineAmt -= 3;
+              stoneAmt -= 2;
+              vineAmt -= 1;
               hasMakeshiftSickle = true;
               makeshiftSickleButton.remove(); 
-              costDisplay.textContent = "Crafted!";
+              resetCostDisplays();
+              stickCostDisplay.textContent = "Crafted!";
               document.getElementById('sickleTxt').style.display = 'block';
               document.getElementById('gatherVineButton').style.display = 'block';
             }
             else {
-              costDisplay.textContent = "Not enough resources!";
+              resetCostDisplays();
+              stickCostDisplay.textContent = "Not enough resources!";
+            }
+          }
+          else if (craftingQueue == "sturdyAxe") {
+            if (stickAmt >= 5 && stoneAmt >= 3 && vineAmt >= 2) {
+              stickAmt -= 5;
+              stoneAmt -= 3;
+              vineAmt -= 2;
+              hasMakeshiftAxe = false;
+              hasSturdyAxe = true;
+              sturdyAxeButton.remove();
+              resetCostDisplays();
+              stickCostDisplay.textContent = "Crafted!";
+              document.getElementById('axeTxt').textContent = "Sturdy Axe";
+            }
+            else {
+              resetCostDisplays();
+              stickCostDisplay.textContent = "Not enough resources!";
+            }
+          }
+          else if (craftingQueue == "sturdyPick") {
+            if (stickAmt >= 5 && stoneAmt >= 5 && vineAmt >= 3) {
+              stickAmt -= 5;
+              stoneAmt -= 5;
+              vineAmt -= 3;
+              hasMakeshiftPick = false;
+              hasSturdyPick = true;
+              sturdyPickButton.remove();
+              resetCostDisplays();
+              stickCostDisplay.textContent = "Crafted!";
+              document.getElementById('pickTxt').textContent = "Sturdy Pick";
+            }
+            else {
+              resetCostDisplays();
+              stickCostDisplay.textContent = "Not enough resources!";
+            }
+          }
+          else if (craftingQueue == "sturdySickle") {
+            if (stickAmt >= 4 && stoneAmt >= 4 && vineAmt >= 4) {
+              stickAmt -= 4;
+              stoneAmt -= 4;
+              vineAmt -= 4;
+              hasMakeshiftSickle = false;
+              hasSturdySickle = true;
+              sturdySickleButton.remove();
+              resetCostDisplays();
+              stickCostDisplay.textContent = "Crafted!";
+              document.getElementById('sickleTxt').textContent = "Sturdy Sickle";
+            }
+            else {
+              resetCostDisplays();
+              stickCostDisplay.textContent = "Not enough resources!";
             }
           }
 
           updateResources();
           resetButtons();
+          checkNewCrafts();
           craftingQueue = "";
         });
         /* END OF CRAFTING BUTTON */
 
-        const gatherSticks = document.getElementById('gatherStickButton');
-
-
-
-        const gatherStones = document.getElementById('gatherStoneButton');
-
-
-
-        const gatherVines = document.getElementById('gatherVineButton');
+        function checkNewCrafts() {
+          if (hasMakeshiftAxe && hasMakeshiftPick && hasMakeshiftSickle) {
+            document.getElementById('craftAxeButton2').style.display = 'block';
+            document.getElementById('craftPickButton2').style.display = 'block';
+            document.getElementById('craftSickleButton2').style.display = 'block';
+          }
+        }
 
     </script>
   </body>
