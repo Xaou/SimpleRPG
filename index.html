@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test game</title>
+  <title>Simple RPG</title>
   <style>
     
     .container {
@@ -87,6 +87,24 @@
       background-color: rgb(223, 145, 0);
     }
 
+    .sticky-footer {
+      position: fixed; 
+      bottom: 0; 
+      left: 0;
+      width: 100%;
+      background-color: #333; /* Dark background for the footer */
+      color: white;
+      z-index: 10; 
+      height: 30px;
+    }
+
+    .footer-content p {
+      margin-right: 10px;
+      text-align: right;
+      text-justify: top;
+      margin-top: 5px;
+    }
+
   </style>
 </head>
 <body>
@@ -138,6 +156,12 @@
         </p>
       </div>
     </div>
+
+    <footer class="sticky-footer">
+      <div class="footer-content">
+          <p>Game by Xaou - Version 0.0.1</p>
+      </div>
+  </footer>
     
     <script>
         let stickAmt = 0;
@@ -295,7 +319,7 @@
 
         const gatherSticks = document.getElementById('gatherStickButton');
 
-        
+
 
         const gatherStones = document.getElementById('gatherStoneButton');
 
