@@ -1,1 +1,144 @@
-/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    margin: 0;
+    background-color: #757575;
+  } 
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 180px 175px 175px 150px 135px auto auto;
+    height: 100vh;
+    width: fit-content;
+  }
+
+.headerCustom {
+    font-weight: bold;
+    font-size: 25px;
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 22px;
+}
+
+.headerCustom2 {
+    font-weight: bold;
+    font-size: 25px;
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 19px;
+}
+
+.headerButtonCustom {
+    font-weight: bold;
+    font-size: 25px;
+    margin-left: 10px;
+    margin-top: 15px;
+    width: 125px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: orange;
+    margin-bottom: 0px;
+}
+
+.headerButtonCustom:hover {
+    background-color: rgb(223, 145, 0);
+}
+
+
+.eventLogText {
+    line-height: 0.5;
+    margin-left: 10px;
+}
+
+.resourceText {
+    line-height: 0.5;
+    margin-left: 10px;
+}
+
+.costText {
+    line-height: 0.5;
+    margin-left: 10px;
+    text-align: right;
+    color: rgb(5, 0, 66);
+}
+
+.equipmentText {
+    line-height: 0.5;
+    margin-left: 10px;
+    color: darkblue;
+}
+
+.infoText {
+    line-height: 0.5;
+    margin-left: 10px;
+}
+
+.gatherButton {
+    font-size: 16px;
+    background-color: lightblue;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    width: 150px;
+    height: 35px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.craftSelectButton {
+    font-size: 16px;
+    background-color: lightblue;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    width: 150px;
+    height: 35px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.sticky-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    z-index: 10;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+  }
+  
+  .footer-content {
+    display: flex;
+    width: 100%; 
+    justify-content: space-between; 
+    align-items: center; 
+  }
+  
+  .footer-content div {
+    text-align: right;
+    font-size: 15px;
+    margin-right: 25px;
+    margin-left: auto;
+  }
+  
+  .footer-content button {
+    height: 20px;
+    width: 50px;
+    font-size: 12px;
+    padding: 2px 5px;
+    background-color: lightblue;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .footer-content button:hover {
+    background-color: rgb(223, 145, 0);
+  }
