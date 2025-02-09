@@ -28,6 +28,12 @@
         <button class="craftSelectButton" id="selectAxeButton1">Makeshift Axe</button>
         <button class="craftSelectButton" id="selectPickButton1">Makeshift Pick</button>
         <button class="craftSelectButton" id="selectSickleButton1">Makeshift Sickle</button>
+        <button class="craftSelectButton" id="selectAxeButton2" style="display: none;">Sturdy Axe</button>
+        <button class="craftSelectButton" id="selectPickButton2" style="display: none;">Sturdy Pick</button>
+        <button class="craftSelectButton" id="selectSickleButton2" style="display: none;">Sturdy Sickle</button>
+        <button class="craftSelectButton" id="selectStickStorageButton1" style="display: none;">Pile of Sticks</button>
+        <button class="craftSelectButton" id="selectStoneStorageButton1" style="display: none;">Pile of Rocks</button>
+        <button class="craftSelectButton" id="selectVineStorageButton1" style="display: none;">Pile of Vines</button>
     </div>
     <div class="column3InfoBox">
         <div class="headerCustom">More Info</div>
@@ -39,9 +45,9 @@
     </div>
     <div class="column4CostBox">
         <button class="headerButtonCustom" id="craftButtonFINAL">Craft!</button>
-        <p class="costText" id="stickCostText">Click an item</p>
-        <p class="costText" id="stoneCostText">to see its cost!</p>
-        <p class="costText" id="vineCostText"></p>
+        <p class="costText" id="stickCostText" style="visibility: visibile;">Click an item</p>
+        <p class="costText" id="stoneCostText" style="visibility: visibile;">to see its cost!</p>
+        <p class="costText" id="vineCostText" style="visibility: visible;"></p>
     </div>
     <div class="column5Resources">
         <div class="headerCustom">Resources</div>
@@ -55,12 +61,197 @@
         <p class="equipmentText" id="pickText" style="visibility: hidden;">Placeholder</p>
         <p class="equipmentText" id="sickleText" style="visibility: hidden;">Placeholder</p>
     </div>
+    <div class="column7Collection">
+      <button class="headerCustomButton2" id="collectionViewButton">View Collection</button>
+    </div>
+  </div>
+
+  <div class="collectionContainer" id="collectionModal">
+    <div class="collectionContent">
+      <span class="closeCollection">&times;</span>
+      
+      <div class="collectionSubContainer">
+        <div class="collectionHeader">Gems</div>
+        <div class="collectionItem">Collection item 1.1</div>
+      </div>
+  
+      <div class="collectionSubContainer">
+        <div class="collectionHeader">Fish</div>
+        <div class="collectionItem">Collection item 2.1</div>
+      </div>
+  
+      <div class="collectionSubContainer">
+        <div class="collectionHeader">Bugs</div>
+        <div class="collectionItem">Collection item 3.1</div>
+      </div>
+
+      <div class="collectionSubContainer">
+        <div class="collectionHeader">Trinkets</div>
+        <div class="collectionItem">Collection item 4.1</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="changelogContainer" id="changelogModal">
+    <div class="changelogContent">
+      <span class="closeChangelog">&times;</span>
+      
+      <div class="changelogSubContainer">
+        <div class="changelogHeader">Version 0.0.1</div>
+        <div class="changelogItem">- Added basic layout</div>
+        <div class="changelogItem">- Added barehand gather button</div>
+        <div class="changelogItem">- Added makeshift tool buttons</div>
+        <div class="changelogItem">- Added saving/loading/reset system</div>
+      </div>
+  
+      <div class="changelogSubContainer">
+        <div class="changelogHeader">Version 0.0.2</div>
+        <div class="changelogItem">- Added functionality to craft button</div>
+        <div class="changelogItem">- Added sturdy tools</div>
+        <div class="changelogItem">- Added gather sticks/stones/vines button</div>
+        <div class="changelogItem">- Added 'pile' upgrades</div>
+        <div class="changelogItem">- Added Change Log button</div>
+        <div class="changelogItem">- Added collection tab</div>
+      </div>
+
+      <div class="changelogSubContainer">
+        <div class="changelogHeader">Version 7.9.21</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- I love you</div>
+        <div class="changelogItem">- Always.</div>
+        <div class="changelogItem">- Forever.</div>
+        <div class="changelogItem">- Etc.</div>
+      </div>
+    </div>
   </div>
 
   <footer class="sticky-footer">
     <div class="footer-content">
         <button id="hardResetButton">Reset</button>
-        <div>Game by Xaou - Version 0.0.1 - Hi AJ </div>
+        <button id="openChangelog" style="width: 80px;">Change Log</button>
+        <div>Game by Xaou - Version 0.0.2 </div>
     </div>
   </footer>
 

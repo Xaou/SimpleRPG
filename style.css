@@ -7,7 +7,7 @@ body {
 
 .grid-container {
     display: grid;
-    grid-template-columns: 180px 175px 175px 150px 135px auto auto;
+    grid-template-columns: 180px 175px 175px 150px 135px auto auto auto;
     height: 100vh;
     width: fit-content;
   }
@@ -98,6 +98,147 @@ body {
     margin-left: 10px;
 }
 
+.headerCustomButton2 {
+  font-weight: bold;
+  font-size: 16px;
+  margin-left: 10px;
+  margin-top: 15px;
+  width: 125px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 6px;
+  background-color: rgb(0, 225, 255);
+  margin-bottom: 0px;
+}
+
+.headerCustomButton2:hover {
+  background-color: rgb(0, 153, 255);
+}
+
+
+.collectionContainer {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.collectionContent {
+  background-color: rgb(55, 107, 70);
+  padding: 20px;
+  width: 80%;
+  max-width: fit-content;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 15px;
+}
+
+.collectionSubContainer {
+  background-color: pink;
+  padding: 10px;
+  border: 0;
+  border-radius: 5px;
+}
+
+.closeCollection {
+  position: absolute;
+  top: 0;
+  right: 3px;
+  font-size: 24px;
+  color:#757575;
+  cursor: pointer;
+}
+
+.closeCollection:hover,
+.closeCollection:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.collectionHeader {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.collectionItem {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.changelogContainer {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.changelogContent {
+  background-color: rgb(70, 70, 70);
+  padding: 20px;
+  width: 80%;
+  height: 85%;
+  max-width: fit-content;
+  overflow-y: auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 1fr);
+  gap: 15px;
+}
+
+.changelogSubContainer {
+  background-color: rgb(31, 31, 31);
+  padding: 10px;
+  border: 0;
+  border-radius: 5px;
+}
+
+.changelogHeader {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  text-align: left;
+  color: white;
+}
+
+.changelogItem {
+  color: white;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.closeChangelog {
+  position: absolute;
+  top: 0;
+  right: 3px;
+  font-size: 24px;
+  color:#757575;
+  cursor: pointer;
+}
+
+.closeChangelog:hover,
+.closeChangelog:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .sticky-footer {
     position: fixed;
     bottom: 0;
@@ -138,7 +279,7 @@ body {
     cursor: pointer;
     margin-right: 10px;
   }
-  
+
   .footer-content button:hover {
     background-color: rgb(223, 145, 0);
   }
