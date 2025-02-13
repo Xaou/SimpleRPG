@@ -1,260 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple RPG</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incremental Skills</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="grid-container">
-    <div class="column0EventLog">
-        <div class="headerCustom">Event Log</div>
-        <p class="eventLogText" id="eventLogText1">This is the start of the</p>
-        <p class="eventLogText" id="eventLogText2">event log. Try foraging</p>
-        <p class="eventLogText" id="eventLogText3">for something!</p>
-        <p class="eventLogText" id="eventLogText4"></p>
-        <p class="eventLogText" id="eventLogText5"></p>
-    </div>
-    <div class="column1GatherButtons">
-        <div class="headerCustom2">Forest</div>
-        <button class="gatherButton" id="gatherBarehand">Barehand Forage</button>
-        <button class="gatherButton" id="gatherSticks" style="display: none;">Gather Sticks</button>
-        <button class="gatherButton" id="gatherStones" style="display: none;">Gather Stones</button>
-        <button class="gatherButton" id="gatherVines" style="display: none;">Gather Vines</button>
-    </div>
-    <div class="column2CraftingButtons">
-        <div class="headerCustom2">Craftables</div>
-        <button class="craftSelectButton" id="selectAxeButton1">Makeshift Axe</button>
-        <button class="craftSelectButton" id="selectPickButton1">Makeshift Pick</button>
-        <button class="craftSelectButton" id="selectSickleButton1">Makeshift Sickle</button>
-        <button class="craftSelectButton" id="selectAxeButton2" style="display: none;">Sturdy Axe</button>
-        <button class="craftSelectButton" id="selectPickButton2" style="display: none;">Sturdy Pick</button>
-        <button class="craftSelectButton" id="selectSickleButton2" style="display: none;">Sturdy Sickle</button>
-        <button class="craftSelectButton" id="selectStickStorageButton1" style="display: none;">Pile of Sticks</button>
-        <button class="craftSelectButton" id="selectStoneStorageButton1" style="display: none;">Pile of Rocks</button>
-        <button class="craftSelectButton" id="selectVineStorageButton1" style="display: none;">Pile of Vines</button>
-    </div>
-    <div class="column3InfoBox">
-        <div class="headerCustom">More Info</div>
-        <p class="infoText" id="descText1">Click on an item for</p>
-        <p class="infoText" id="descText2">more information!</p>
-        <p class="infoText" id="descText3"></p>
-        <p class="infoText" id="descText4"></p>
-        <p class="infoText" id="descText5"></p>
-    </div>
-    <div class="column4CostBox">
-        <button class="headerButtonCustom" id="craftButtonFINAL">Craft!</button>
-        <p class="costText" id="stickCostText" style="visibility: visibile;">Click an item</p>
-        <p class="costText" id="stoneCostText" style="visibility: visibile;">to see its cost!</p>
-        <p class="costText" id="vineCostText" style="visibility: visible;"></p>
-    </div>
-    <div class="column5Resources">
-        <div class="headerCustom">Resources</div>
-        <p class="resourceText" id="stickText">Sticks: 0/10</p>
-        <p class="resourceText" id="stoneText">Stones: 0/10</p>
-        <p class="resourceText" id="vineText">Vines: 0/10</p>
-    </div>
-    <div class="column6Equipment">
-        <div class="headerCustom">Equipment</div>
-        <p class="equipmentText" id="axeText">Crafted items appear here!</p>
-        <p class="equipmentText" id="pickText" style="visibility: hidden;">Placeholder</p>
-        <p class="equipmentText" id="sickleText" style="visibility: hidden;">Placeholder</p>
-    </div>
-    <div class="column7Collection">
-      <button class="headerCustomButton2" id="collectionViewButton">View Collection</button>
-    </div>
-  </div>
 
-  <div class="collectionContainer" id="collectionModal">
-    <div class="collectionContent">
-      <span class="closeCollection">&times;</span>
-      
-      <div class="collectionSubContainer">
-        <div class="collectionHeader">Gems</div>
-        <div class="collectionItem">Collection item 1.1</div>
-      </div>
-  
-      <div class="collectionSubContainer">
-        <div class="collectionHeader">Fish</div>
-        <div class="collectionItem">Collection item 2.1</div>
-      </div>
-  
-      <div class="collectionSubContainer">
-        <div class="collectionHeader">Bugs</div>
-        <div class="collectionItem">Collection item 3.1</div>
-      </div>
+<div id="left-section">
+    <button class="active-btn" id="btn1" onclick="changeContent('content1', this)">Mining</button>
+    <button id="btn2" onclick="changeContent('content2', this)">Fishing</button>
+    <button id="btn3" onclick="changeContent('content3', this)">Shop</button>
+</div>
 
-      <div class="collectionSubContainer">
-        <div class="collectionHeader">Trinkets</div>
-        <div class="collectionItem">Collection item 4.1</div>
-      </div>
+<div id="right-section">
+    <div id="content1" class="content active">
+        <div class="expBarArea">
+            <button class="moreInfoBtn" id="openModalBtn1">More Info</button>
+            <div class="progressSection">
+                <div class="levelDisplay">Level: <span id="miningCurrentLevel">0</span></div>
+                <div class="progressBarContainer">
+                    <div class="progressBar">
+                        <div class="progressColor" id="miningExpProgress"></div>
+                        <span class="progressText">XP: <span id="miningCurrentXP">0</span>/<span id="miningNeededXP">1000</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="nextUnlock" id="nextMiningUnlock">Next Unlock: Level 5</div>
+        </div>
+
+        <div class="miningModal" id="myMiningModal">
+            <div class="miningModalContent">
+                <span class="close-btn" id="closeModalBtn1">&times;</span>
+                <h2>Mining Information</h2>
+                <div style="line-height: 1.3;">To go mining, all you have to do is click on one of the location buttons.</div>
+                <div style="line-height: 1.3;">It will give you a random item and some exp, based on the item.</div>
+                <div style="line-height: 1.3;">The location will also go on cooldown for some time. Each location's cooldown is independent.</div>
+                <div style="line-height: 1.3;">As you level up, you will unlock different areas and different items.</div>
+                <div><br>Below you can see all unlocked locations and which items they contain:<br><br></div>
+                <div style="font-weight: bold; margin-bottom: 5px;">Whisperwind Cave</div>
+                <table class="miningInfoTable">
+                    <tbody>
+                        <tr><td>Tin Ore</td><td>30%</td><td style="padding-left: 30px;">Agate</td><td>12%</td></tr>
+                        <tr><td>Copper Ore</td><td>25%</td><td  style="padding-left: 30px;">Peridot</td><td>8%</td></tr>
+                        <tr><td>Zinc Ore</td><td>20%</td><td  style="padding-left: 30px;">Malachite</td><td>5%</td></tr>
+                    </tbody>
+                </table>
+                <div id="moreMInfo1" style="font-weight: bold; margin-bottom: 5px; margin-top: 15px; display: none;">Raven's Hollow</div>
+                <table id="moreMInfoT1" class="miningInfoTable" style="display: none;">
+                    <tbody>
+                        <tr><td>Tin Ore</td><td>25%</td><td style="padding-left: 30px;">Agate</td><td>12%</td></tr>
+                        <tr><td>Copper Ore</td><td>20%</td><td  style="padding-left: 30px;">Peridot</td><td>9%</td></tr>
+                        <tr><td>Zinc Ore</td><td>15%</td><td  style="padding-left: 30px;">Malachite</td><td>6%</td></tr>
+                        <tr><td>Nickel Ore</td><td>10%</td><td  style="padding-left: 30px;">Amber</td><td>3%</td></tr>
+                    </tbody>
+                </table>
+                <div id="moreMInfo2" style="font-weight: bold; margin-bottom: 5px; margin-top: 15px; display: none;">Silent Grotto</div>
+                <table id="moreMInfoT2" class="miningInfoTable" style="display: none;">
+                    <tbody>
+                        <tr><td>Tin Ore</td><td>20%</td><td style="padding-left: 30px;">Agate</td><td>10%</td></tr>
+                        <tr><td>Copper Ore</td><td>18%</td><td  style="padding-left: 30px;">Peridot</td><td>8%</td></tr>
+                        <tr><td>Zinc Ore</td><td>15%</td><td  style="padding-left: 30px;">Malachite</td><td>6%</td></tr>
+                        <tr><td>Nickel Ore</td><td>10%</td><td  style="padding-left: 30px;">Amber</td><td>4%</td></tr>
+                        <tr><td>Lead Ore</td><td>7%</td><td  style="padding-left: 30px;">Garnet</td><td>2%</td></tr>
+                    </tbody>
+                </table>
+                <div id="moreMInfo3" style="font-weight: bold; margin-bottom: 5px; margin-top: 15px; display: none;">Gloomspire Rift</div>
+                <table id="moreMInfoT3" class="miningInfoTable" style="display: none;">
+                    <tbody>
+                        <tr><td>Copper Ore</td><td>20%</td><td style="padding-left: 30px;">Peridot</td><td>10%</td></tr>
+                        <tr><td>Zinc Ore</td><td>18%</td><td  style="padding-left: 30px;">Malachite</td><td>8%</td></tr>
+                        <tr><td>Nickel Ore</td><td>15%</td><td  style="padding-left: 30px;">Amber</td><td>6%</td></tr>
+                        <tr><td>Lead Ore</td><td>10%</td><td  style="padding-left: 30px;">Garnet</td><td>4%</td></tr>
+                        <tr><td>Cobalt Ore</td><td>7%</td><td  style="padding-left: 30px;">Aquamarine</td><td>2%</td></tr>
+                    </tbody>
+                </table>
+                <div id="moreMInfo4" style="font-weight: bold; margin-bottom: 5px; margin-top: 15px; display: none;">Cavern of Whispers</div>
+                <table id="moreMInfoT4" class="miningInfoTable" style="display: none;">
+                    <tbody>
+                        <tr><td>Zinc Ore</td><td>20%</td><td style="padding-left: 30px;">Malachite</td><td>10%</td></tr>
+                        <tr><td>Nickel Ore</td><td>18%</td><td  style="padding-left: 30px;">Amber</td><td>8%</td></tr>
+                        <tr><td>Lead Ore</td><td>15%</td><td  style="padding-left: 30px;">Garnet</td><td>6%</td></tr>
+                        <tr><td>Cobalt Ore</td><td>10%</td><td  style="padding-left: 30px;">Aquamarine</td><td>4%</td></tr>
+                        <tr><td>Titanium Ore</td><td>7%</td><td  style="padding-left: 30px;">Topaz</td><td>2%</td></tr>
+                    </tbody>
+                </table>
+                <div id="moreMInfo5" style="font-weight: bold; margin-bottom: 5px; margin-top: 15px; display: none;">Moonlit Wyrm's Rest</div>
+                <table id="moreMInfoT5" class="miningInfoTable" style="display: none;">
+                    <tbody>
+                        <tr><td>Zinc Ore</td><td>20%</td><td style="padding-left: 30px;">Malachite</td><td>6%</td></tr>
+                        <tr><td>Nickel Ore</td><td>15%</td><td  style="padding-left: 30px;">Amber</td><td>5%</td></tr>
+                        <tr><td>Lead Ore</td><td>13%</td><td  style="padding-left: 30px;">Garnet</td><td>4%</td></tr>
+                        <tr><td>Cobalt Ore</td><td>12%</td><td  style="padding-left: 30px;">Aquamarine</td><td>3%</td></tr>
+                        <tr><td>Titanium Ore</td><td>10%</td><td  style="padding-left: 30px;">Topaz</td><td>2%</td></tr>
+                        <tr><td>Tungsten Ore</td><td>9%</td><td  style="padding-left: 30px;">Amethyst</td><td>1%</td></tr>
+                    </tbody>
+                </table>
+                <div id="moreMInfo6" style="font-weight: bold; margin-bottom: 5px; margin-top: 15px; display: none;">Twilight Labyrinth</div>
+                <table id="moreMInfoT6" class="miningInfoTable" style="display: none;">
+                    <tbody>
+                        <tr><td>Nickel Ore</td><td>20%</td><td style="padding-left: 30px;">Amber</td><td>6%</td></tr>
+                        <tr><td>Lead Ore</td><td>15%</td><td  style="padding-left: 30px;">Garnet</td><td>5%</td></tr>
+                        <tr><td>Cobalt Ore</td><td>13%</td><td  style="padding-left: 30px;">Aquamarine</td><td>4%</td></tr>
+                        <tr><td>Titanium Ore</td><td>12%</td><td  style="padding-left: 30px;">Topaz</td><td>3%</td></tr>
+                        <tr><td>Tungsten Ore</td><td>10%</td><td  style="padding-left: 30px;">Amethyst</td><td>2%</td></tr>
+                        <tr><td>Silver Ore</td><td>9%</td><td  style="padding-left: 30px;">Sapphire</td><td>1%</td></tr>
+                    </tbody>
+                </table>
+                <div id="moreMInfo7" style="font-weight: bold; margin-bottom: 5px; margin-top: 15px; display: none;">Veil of Forgotten Paths</div>
+                <table id="moreMInfoT7" class="miningInfoTable" style="display: none;">
+                    <tbody>
+                        <tr><td>Lead Ore</td><td>20%</td><td style="padding-left: 30px;">Garnet</td><td>6%</td></tr>
+                        <tr><td>Cobalt Ore</td><td>15%</td><td  style="padding-left: 30px;">Aquamarine</td><td>5%</td></tr>
+                        <tr><td>Titanium Ore</td><td>13%</td><td  style="padding-left: 30px;">Topaz</td><td>4%</td></tr>
+                        <tr><td>Tungsten Ore</td><td>12%</td><td  style="padding-left: 30px;">Amethyst</td><td>3%</td></tr>
+                        <tr><td>Silver Ore</td><td>10%</td><td  style="padding-left: 30px;">Sapphire</td><td>2%</td></tr>
+                        <tr><td>Gold Ore</td><td>9%</td><td  style="padding-left: 30px;">Ruby</td><td>1%</td></tr>
+                    </tbody>
+                </table>
+                <div id="moreMInfo8" style="font-weight: bold; margin-bottom: 5px; margin-top: 15px; display: none;">Realm of Eternal Night</div>
+                <table id="moreMInfoT8" class="miningInfoTable" style="display: none;">
+                    <tbody>
+                        <tr><td>Cobalt Ore</td><td>20%</td><td style="padding-left: 30px;">Aquamarine</td><td>6%</td></tr>
+                        <tr><td>Titanium Ore</td><td>15%</td><td  style="padding-left: 30px;">Topaz</td><td>5%</td></tr>
+                        <tr><td>Tungsten Ore</td><td>13%</td><td  style="padding-left: 30px;">Amethyst</td><td>4%</td></tr>
+                        <tr><td>Silver Ore</td><td>12%</td><td  style="padding-left: 30px;">Sapphire</td><td>3%</td></tr>
+                        <tr><td>Gold Ore</td><td>10%</td><td  style="padding-left: 30px;">Ruby</td><td>2%</td></tr>
+                        <tr><td>Platinum Ore</td><td>9%</td><td  style="padding-left: 30px;">Emerald</td><td>1%</td></tr>
+                    </tbody>
+                </table>
+                <div id="moreMInfo9" style="font-weight: bold; margin-bottom: 5px; margin-top: 15px; display: none;">Shattered Depths of Oblivion</div>
+                <table id="moreMInfoT9" class="miningInfoTable" style="display: none;">
+                    <tbody>
+                        <tr><td>Titanium Ore</td><td>20%</td><td style="padding-left: 30px;">Topaz</td><td>6%</td></tr>
+                        <tr><td>Tungsten Ore</td><td>15%</td><td  style="padding-left: 30px;">Amethyst</td><td>5%</td></tr>
+                        <tr><td>Silver Ore</td><td>13%</td><td  style="padding-left: 30px;">Sapphire</td><td>4%</td></tr>
+                        <tr><td>Gold Ore</td><td>12%</td><td  style="padding-left: 30px;">Ruby</td><td>3%</td></tr>
+                        <tr><td>Platinum Ore</td><td>10%</td><td  style="padding-left: 30px;">Emerald</td><td>2.5%</td></tr>
+                        <tr><td>Iridium Ore</td><td>9%</td><td  style="padding-left: 30px;">Diamond</td><td>0.5%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="content1Sub">
+            <h2>Locations</h2>
+            <button class="mineBtn" id="mineBtn1">Whisperwind Cave</button>
+            <button class="mineBtn" id="mineBtn2" style="visibility: hidden;">Raven's Hollow</button>
+            <button class="mineBtn" id="mineBtn3" style="visibility: hidden;">Silent Grotto</button>
+            <button class="mineBtn" id="mineBtn4" style="visibility: hidden;">Gloomspire Rift</button>
+            <button class="mineBtn" id="mineBtn5" style="visibility: hidden;">Cavern of Whispers</button>
+            <button class="mineBtn" id="mineBtn6" style="visibility: hidden;">Moonlit Wyrm's Rest</button>
+            <button class="mineBtn" id="mineBtn7" style="visibility: hidden;">Twilight Labyrinth</button>
+            <button class="mineBtn" id="mineBtn8" style="visibility: hidden;">Veil of Forgotten Paths</button>
+            <button class="mineBtn" id="mineBtn9" style="visibility: hidden;">Realm of Eternal Night</button>
+            <button class="mineBtn" id="mineBtn10" style="visibility: hidden;">Shattered Depths of Oblivion</button>
+        </div>
+        <div class="content1Sub">
+            <h2 style="text-align: center;">Ores</h2>
+            <table>
+                <tr><td>Tin Ore</td><td id="tinText">0</td></tr>
+                <tr><td>Copper Ore</td><td id="copperText">0</td></tr>
+                <tr><td>Zinc Ore</td><td id="zincText">0</td></tr>
+                <tr id="nickelRow" style="display: none;"><td>Nickel Ore</td><td id="nickelText">0</td></tr>
+                <tr id="leadRow" style="display: none;"><td>Lead Ore</td><td id="leadText">0</td></tr>
+                <tr id="cobaltRow" style="display: none;"><td>Cobalt Ore</td><td id="cobaltText">0</td></tr>
+                <tr id="titaniumRow" style="display: none;"><td>Titanium Ore</td><td id="titaniumText">0</td></tr>
+                <tr id="tungstenRow" style="display: none;"><td>Tungsten Ore</td><td id="tungstenText">0</td></tr>
+                <tr id="silverRow" style="display: none;"><td>Silver Ore</td><td id="silverText">0</td></tr>
+                <tr id="goldRow" style="display: none;"><td>Gold Ore</td><td id="goldText">0</td></tr>
+                <tr id="platinumRow" style="display: none;"><td>Platinum Ore</td><td id="platinumText">0</td></tr>
+                <tr id="iridiumRow" style="display: none;"><td>Iridium Ore</td><td id="iridiumText">0</td></tr>
+            </table>
+        </div>
+        <div class="content1Sub">
+            <h2 style="text-align: center;">Minerals</h2>
+            <table>
+                <tr><td>Agate</td><td id="agateText">0</td></tr>
+                <tr><td>Peridot</td><td id="peridotText">0</td></tr>
+                <tr><td>Malachite</td><td id="malachiteText">0</td></tr>
+                <tr id="amberRow" style="display: none;"><td>Amber</td><td id="amberText">0</td></tr>
+                <tr id="garnetRow" style="display: none;"><td>Garnet</td><td id="garnetText">0</td></tr>
+                <tr id="aquamarineRow" style="display: none;"><td>Aquamarine</td><td id="aquamarineText">0</td></tr>
+                <tr id="topazRow" style="display: none;"><td>Topaz</td><td id="topazText">0</td></tr>
+                <tr id="amethystRow" style="display: none;"><td>Amethyst</td><td id="amethystText">0</td></tr>
+                <tr id="sapphireRow" style="display: none;"><td>Sapphire</td><td id="sapphireText">0</td></tr>
+                <tr id="rubyRow" style="display: none;"><td>Ruby</td><td id="rubyText">0</td></tr>
+                <tr id="emeraldRow" style="display: none;"><td>Emerald</td><td id="emeraldText">0</td></tr>
+                <tr id="diamondRow" style="display: none;"><td>Diamond</td><td id="diamondText">0</td></tr>
+            </table>
+        </div>
+        <div class="content1Sub" style="position: relative;">
+            <img src="clouds.png" style="width: 100%; height: 50%; position: absolute; top: 0; filter: grayscale(60%); opacity: 70%;"></img>
+            <img src="bg.png" style="width: 60%; height: 60%; position: absolute; bottom: 0; filter: grayscale(80%); opacity: 70%;"></img>
+            <img src="bg.png" style="width: 40%; height: 40%; position: absolute; bottom: 0; right: 0; filter: grayscale(80%); opacity: 70%;"></img>
+        </div>
+
+        <div class="content1Sub" style="text-align: right;">
+            <h2>Event Log</h2>
+            <div id="eventLog1" style="line-height: 1.3;"></div>
+            <div id="eventLog2" style="line-height: 1.3;"></div>
+            <div id="eventLog3" style="line-height: 1.3;"></div>
+            <div id="eventLog4" style="line-height: 1.3;"></div>
+            <div id="eventLog5" style="line-height: 1.3;"></div>
+            <div id="eventLog6" style="line-height: 1.3;"></div>
+            <div id="eventLog7" style="line-height: 1.3;"></div>
+            <div id="eventLog8" style="line-height: 1.3;"></div>
+            <div id="eventLog9" style="line-height: 1.3;"></div>
+            <div id="eventLog10" style="line-height: 1.3;"></div>
+        </div>
     </div>
-  </div>
+    <div id="content2" class="content" style="display: none;">
+        <h2>Fishing</h2>
+        <div class="item">Coming soon&trade;</div>
+    </div>
+    <div id="content3" class="content" style="display: none;">
+        <h2>Shop</h2>
+        <div class="item">Coming soon&trade;</div>
+    </div>
+</div>
 
-  <div class="changelogContainer" id="changelogModal">
+<div class="changelogContainer" id="changelogModal">
     <div class="changelogContent">
       <span class="closeChangelog">&times;</span>
-      
       <div class="changelogSubContainer">
-        <div class="changelogHeader">Version 0.0.1</div>
-        <div class="changelogItem">- Added basic layout</div>
-        <div class="changelogItem">- Added barehand gather button</div>
-        <div class="changelogItem">- Added makeshift tool buttons</div>
-        <div class="changelogItem">- Added saving/loading/reset system</div>
-      </div>
-  
-      <div class="changelogSubContainer">
-        <div class="changelogHeader">Version 0.0.2</div>
-        <div class="changelogItem">- Added functionality to craft button</div>
-        <div class="changelogItem">- Added sturdy tools</div>
-        <div class="changelogItem">- Added gather sticks/stones/vines button</div>
-        <div class="changelogItem">- Added 'pile' upgrades</div>
-        <div class="changelogItem">- Added Change Log button</div>
-        <div class="changelogItem">- Added collection tab</div>
-      </div>
-
-      <div class="changelogSubContainer">
-        <div class="changelogHeader">Version 7.9.21</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- I love you</div>
-        <div class="changelogItem">- Always.</div>
-        <div class="changelogItem">- Forever.</div>
-        <div class="changelogItem">- Etc.</div>
+        <div class="changelogHeader">Version 0.0.1 <span style="padding-left:25px; font-size: 15px;">Feb 14 2025</div>
+        <div class="changelogItem">- Added pretty much all of Mining Section</div>
       </div>
     </div>
-  </div>
+</div>
 
-  <footer class="sticky-footer">
+<footer class="sticky-footer">
     <div class="footer-content">
-        <button id="hardResetButton">Reset</button>
+        <button id="hardResetButton" onclick="resetGame()">Reset</button>
         <button id="openChangelog" style="width: 80px;">Change Log</button>
-        <div>Game by Xaou - Version 0.0.2 </div>
+        <div>Game by Xaou - Version 0.0.1&nbsp;&nbsp;&nbsp;&nbsp;AJ is a cutie </div>
     </div>
-  </footer>
+</footer>
 
-  <script src="game.js"></script>
+<script src="game.js"></script>
 </body>
 </html>
