@@ -10,8 +10,11 @@
 
 <div id="left-section">
     <button class="active-btn" id="btn1" onclick="changeContent('content1', this)">Mining</button>
-    <button id="btn2" onclick="changeContent('content2', this)">Fishing</button>
-    <button id="btn3" onclick="changeContent('content3', this)">Shop</button>
+    <button id="btn2" onclick="changeContent('content2', this)">Forge</button>
+    <button id="btn3" onclick="changeContent('content3', this)">Fishing</button>
+    <button id="btn4" onclick="changeContent('content4', this)">Farming</button>
+    <button id="btn5" onclick="changeContent('content5', this)">Cooking</button>
+    <button id="btn6" onclick="changeContent('content6', this)">Pets</button>
 </div>
 
 <div id="right-section">
@@ -175,7 +178,7 @@
             </table>
         </div>
         <div class="content1Sub">
-            <h2 style="text-align: center;">Minerals</h2>
+            <h2 style="text-align: center;">Gems</h2>
             <table>
                 <tr><td>Agate</td><td id="agateText">0</td></tr>
                 <tr><td>Peridot</td><td id="peridotText">0</td></tr>
@@ -212,11 +215,188 @@
         </div>
     </div>
     <div id="content2" class="content" style="display: none;">
+        <h2 style="margin: 0px;">The Forge</h2>
+        <div class="shop-container">
+            <div class="item-selection">
+                <button class="item-button" id="tinPickBtn" onclick="selectItem('tinPick')">Tin<br>Pickaxe</button>
+                <button class="item-button" id="copperPickBtn" onclick="selectItem('copperPick')">Copper<br>Pickaxe</button>
+                <button class="item-button" id="zincPickBtn" onclick="selectItem('zincPick')">Zinc<br>Pickaxe</button>
+                <button style="display:none;" class="item-button" id="nickelPickBtn" onclick="selectItem('nickelPick')">Nickel<br>Pickaxe</button>
+                <button style="display:none;" class="item-button" id="leadPickBtn" onclick="selectItem('leadPick')">Lead<br>Pickaxe</button>
+                <button style="display:none;" class="item-button" id="cobaltPickBtn" onclick="selectItem('cobaltPick')">Cobalt<br>Pickaxe</button>
+                <button style="display:none;" class="item-button" id="titaniumPickBtn" onclick="selectItem('titaniumPick')">Titanium<br>Pickaxe</button>
+                <button style="display:none;" class="item-button" id="tungstenPickBtn" onclick="selectItem('tungstenPick')">Tungsten<br>Pickaxe</button>
+                <button style="display:none;" class="item-button" id="silverPickBtn" onclick="selectItem('silverPick')">Silver<br>Pickaxe</button>
+                <button style="display:none;" class="item-button" id="goldPickBtn" onclick="selectItem('goldPick')">Gold<br>Pickaxe</button>
+                <button style="display:none;" class="item-button" id="platinumPickBtn" onclick="selectItem('platinumPick')">Platinum<br>Pickaxe</button>
+                <button style="display:none;" class="item-button" id="iridiumPickBtn" onclick="selectItem('iridiumPick')">Iridium<br>Pickaxe</button>
+            </div>
+            <div class="item-selection">
+                <button class="item-button" id="agateNeckBtn" onclick="selectItem('agateNeck')">Agate<br>Necklace</button>
+                <button class="item-button" id="peridotNeckBtn" onclick="selectItem('peridotNeck')">Peridot<br>Necklace</button>
+                <button class="item-button" id="malachiteNeckBtn" onclick="selectItem('malachiteNeck')">Malachite<br>Necklace</button>
+                <button style="display:none;" class="item-button" id="amberNeckBtn" onclick="selectItem('amberNeck')">Amber<br>Necklace</button>
+                <button style="display:none;" class="item-button" id="garnetNeckBtn" onclick="selectItem('garnetNeck')">Garnet<br>Necklace</button>
+                <button style="display:none;" class="item-button" id="aquamarineNeckBtn" onclick="selectItem('aquamarineNeck')">Aquamarine<br>Necklace</button>
+                <button style="display:none;" class="item-button" id="topazNeckBtn" onclick="selectItem('topazNeck')">Topaz<br>Necklace</button>
+                <button style="display:none;" class="item-button" id="amethystNeckBtn" onclick="selectItem('amethystNeck')">Amethyst<br>Necklace</button>
+                <button style="display:none;" class="item-button" id="sapphireNeckBtn" onclick="selectItem('sapphireNeck')">Sapphire<br>Necklace</button>
+                <button style="display:none;" class="item-button" id="rubyNeckBtn" onclick="selectItem('rubyNeck')">Ruby<br>Necklace</button>
+                <button style="display:none;" class="item-button" id="emeraldNeckBtn" onclick="selectItem('emeraldNeck')">Emerald<br>Necklace</button>
+                <button style="display:none;" class="item-button" id="diamondNeckBtn" onclick="selectItem('diamondNeck')">Diamond<br>Necklace</button>
+            </div>
+            <div class="item-details">
+                <h3 id="item-name">Select an item</h3>
+                <p id="item-description">Description will appear here.</p>
+                <table class="shopTable">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Cost</th>
+                            <th style="text-align: left;">(Owned)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="mineShopRow" id="tinShopRow" style="display: none;">
+                            <td>Tin</td>
+                            <td><span id="tinCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopTinTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="copperShopRow" style="display: none;">
+                            <td>Copper</td>
+                            <td><span id="copperCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopCopperTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="zincShopRow" style="display: none;">
+                            <td>Zinc</td>
+                            <td><span id="zincCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopZincTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="nickelShopRow" style="display: none;">
+                            <td>Nickel</td>
+                            <td><span id="nickelCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopNickelTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="leadShopRow" style="display: none;">
+                            <td>Lead</td>
+                            <td><span id="leadCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopLeadTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="cobaltShopRow" style="display: none;">
+                            <td>Cobalt</td>
+                            <td><span id="cobaltCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopCobaltTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="titaniumShopRow" style="display: none;">
+                            <td>Titanium</td>
+                            <td><span id="titaniumCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopTitaniumTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="tungstenShopRow" style="display: none;">
+                            <td>Tungsten</td>
+                            <td><span id="tungstenCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopTungstenTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="silverShopRow" style="display: none;">
+                            <td>Silver</td>
+                            <td><span id="silverCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopSilverTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="goldShopRow" style="display: none;">
+                            <td>Gold</td>
+                            <td><span id="goldCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopGoldTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="platinumShopRow" style="display: none;">
+                            <td>Platinum</td>
+                            <td><span id="platinumCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopPlatinumTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="iridiumShopRow" style="display: none;">
+                            <td>Iridium</td>
+                            <td><span id="iridiumCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopIridiumTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="agateShopRow" style="display: none;">
+                            <td>Agate</td>
+                            <td><span id="agateCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopAgateTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="peridotShopRow" style="display: none;">
+                            <td>Peridot</td>
+                            <td><span id="peridotCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopPeridotTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="malachiteShopRow" style="display: none;">
+                            <td>Malachite</td>
+                            <td><span id="malachiteCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopMalachiteTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="amberShopRow" style="display: none;">
+                            <td>Amber</td>
+                            <td><span id="amberCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopAmberTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="garnetShopRow" style="display: none;">
+                            <td>Garnet</td>
+                            <td><span id="garnetCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopGarnetTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="aquamarineShopRow" style="display: none;">
+                            <td>Aquamarine</td>
+                            <td><span id="aquamarineCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopAquamarineTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="topazShopRow" style="display: none;">
+                            <td>Topaz</td>
+                            <td><span id="topazCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopTopazTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="amethystShopRow" style="display: none;">
+                            <td>Amethyst</td>
+                            <td><span id="amethystCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopAmethystTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="sapphireShopRow" style="display: none;">
+                            <td>Sapphire</td>
+                            <td><span id="sapphireCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopSapphireTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="rubyShopRow" style="display: none;">
+                            <td>Ruby</td>
+                            <td><span id="rubyCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopRubyTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="emeraldShopRow" style="display: none;">
+                            <td>Emerald</td>
+                            <td><span id="emeraldCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopEmeraldTxt">0</span>)</td>
+                        </tr>
+                        <tr class="mineShopRow" id="diamondShopRow" style="display: none;">
+                            <td>Diamond</td>
+                            <td><span id="diamondCostTxt">0</span></td>
+                            <td style="text-align: left; padding-left: 25px;">(<span id="shopDiamondTxt">0</span>)</td>
+                        </tr>                        
+                    </tbody>
+                </table>
+                <button class="forgeButton" id="forgeButton" onclick="forgeItem()">Forge</button>
+            </div>
+        </div>
+    </div>
+    <div id="content3" class="content" style="display: none;">
         <h2>Fishing</h2>
         <div class="item">Coming soon&trade;</div>
     </div>
-    <div id="content3" class="content" style="display: none;">
-        <h2>Shop</h2>
+    <div id="content4" class="content" style="display: none;">
+        <h2>Farming</h2>
+        <div class="item">Coming soon&trade;</div>
+    </div>
+    <div id="content5" class="content" style="display: none;">
+        <h2>Cooking</h2>
+        <div class="item">Coming soon&trade;</div>
+    </div>
+    <div id="content6" class="content" style="display: none;">
+        <h2>Pets</h2>
         <div class="item">Coming soon&trade;</div>
     </div>
 </div>
@@ -225,8 +405,16 @@
     <div class="changelogContent">
       <span class="closeChangelog">&times;</span>
       <div class="changelogSubContainer">
-        <div class="changelogHeader">Version 0.0.1 <span style="padding-left:25px; font-size: 15px;">Feb 14 2025</div>
-        <div class="changelogItem">- Added pretty much all of Mining Section</div>
+        <div class="changelogHeader">Version 0.0.2 <span style="padding-left:25px; font-size: 15px;">Feb 15 2025</div>
+        <div class="changelogItem">- Added forge page layout</div>
+        <div class="changelogItem">- Added functions to forge page</div>
+      </div>
+      <div class="changelogSubContainer">
+        <div class="changelogHeader">Version 0.0.1 <span style="padding-left:25px; font-size: 15px;">Feb 13 2025</div>
+        <div class="changelogItem">- Added main page layout</div>
+        <div class="changelogItem">- Added save/load system</div>
+        <div class="changelogItem">- Added mining page layout</div>
+        <div class="changelogItem">- Added functions to mining page</div>
       </div>
     </div>
 </div>
@@ -235,7 +423,7 @@
     <div class="footer-content">
         <button id="hardResetButton" onclick="resetGame()">Reset</button>
         <button id="openChangelog" style="width: 80px;">Change Log</button>
-        <div>Game by Xaou - Version 0.0.1&nbsp;&nbsp;&nbsp;&nbsp;AJ is a cutie </div>
+        <div>Game by Xaou - Version 0.0.2&nbsp;&nbsp;&nbsp;&nbsp;NayJay 4ever</div>
     </div>
 </footer>
 

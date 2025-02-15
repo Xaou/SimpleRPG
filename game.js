@@ -12,8 +12,12 @@ function changeContent(sectionId, button) {
     const buttons = document.querySelectorAll('#left-section button');
     buttons.forEach(btn => btn.classList.remove('active-btn'));
     button.classList.add('active-btn');
+    if (sectionId == "content2") {
+        updateForgeTxt();
+    }
 }
 
+let isResetting = false;
 let eventLogTxt = ["","","","","","","","","",""];
 let miningData = {
     Tin: 0,
@@ -67,22 +71,8 @@ let miningExpData = {
     Emerald: 400,
     Diamond: 500
 };
-let miningLevelData = {
-    miningExp: 0,
-    miningNeededXP: 1000,
-    miningLevel: 0
-};
-let miningUnlocks = {
-    u1: false,
-    u2: false,
-    u3: false,
-    u4: false,
-    u5: false,
-    u6: false,
-    u7: false,
-    u8: false,
-    u9: false
-};
+let miningLevelData = {miningExp: 0, miningNeededXP: 1000, miningLevel: 0};
+let miningUnlocks = {u1: false, u2: false, u3: false, u4: false, u5: false, u6: false, u7: false, u8: false, u9: false};
 
 const mBtn1 = document.getElementById("mineBtn1");
 const mBtn2 = document.getElementById("mineBtn2");
@@ -95,32 +85,6 @@ const mBtn8 = document.getElementById("mineBtn8");
 const mBtn9 = document.getElementById("mineBtn9");
 const mBtn10 = document.getElementById("mineBtn10");
 
-const tinTxt = document.getElementById("tinText");
-const copperTxt = document.getElementById("copperText");
-const zincTxt = document.getElementById("zincText");
-const nickelTxt = document.getElementById("nickelText");
-const leadTxt = document.getElementById("leadText");
-const cobaltTxt = document.getElementById("cobaltText");
-const titaniumTxt = document.getElementById("titaniumText");
-const tungstenTxt = document.getElementById("tungstenText");
-const silverTxt = document.getElementById("silverText");
-const goldTxt = document.getElementById("goldText");
-const platinumTxt = document.getElementById("platinumText");
-const iridiumTxt = document.getElementById("iridiumText");
-
-const agateTxt = document.getElementById("agateText");
-const peridotTxt = document.getElementById("peridotText");
-const malachiteTxt = document.getElementById("malachiteText");
-const amberTxt = document.getElementById("amberText");
-const garnetTxt = document.getElementById("garnetText");
-const aquamarineTxt = document.getElementById("aquamarineText");
-const topazTxt = document.getElementById("topazText");
-const amethystTxt = document.getElementById("amethystText");
-const sapphireTxt = document.getElementById("sapphireText");
-const rubyTxt = document.getElementById("rubyText");
-const emeraldTxt = document.getElementById("emeraldText");
-const diamondTxt = document.getElementById("diamondText");
-
 const currentMiningExpTxt = document.getElementById("miningCurrentXP");
 const neededMiningExpTxt = document.getElementById("miningNeededXP");
 const currentMiningLevelTxt = document.getElementById("miningCurrentLevel");
@@ -129,15 +93,193 @@ const nextMiningUnlockTxt = document.getElementById("nextMiningUnlock");
 
 mBtn1.addEventListener("click", function() {
     let rnd = Math.random() * 100;
-    rnd = Math.floor(rnd);
+    rnd = Math.floor(rnd) + 1;
     eventLogTxt.shift();
     if (rnd > 70) { gainMineItem("Tin", 0); }
     else if (rnd <= 70 && rnd > 45) { gainMineItem("Copper", 0); }
     else if (rnd <= 45 && rnd > 25) { gainMineItem("Zinc", 0); }
     else if (rnd <= 25 && rnd > 13) { gainMineItem("Agate", 1); }
     else if (rnd <= 13 && rnd > 5) { gainMineItem("Peridot", 1); }
-    else if (rnd <= 5) { gainMineItem("Malachite", 1); }
-    //startMiningCooldown(5, 0);
+    else { gainMineItem("Malachite", 1); }
+    startMiningCooldown(5, 0);
+    updateEventLog();
+    updateMiningResourceDisplay();
+    updateMiningExp();
+});
+mBtn2.addEventListener("click", function() {
+    let rnd = Math.random() * 100;
+    rnd = Math.floor(rnd) + 1;
+    eventLogTxt.shift();
+    if (rnd > 75) { gainMineItem("Tin", 0); }
+    else if (rnd <= 75 && rnd > 55) { gainMineItem("Copper", 0); }
+    else if (rnd <= 55 && rnd > 40) { gainMineItem("Zinc", 0); }
+    else if (rnd <= 40 && rnd > 30) { gainMineItem("Nickel", 0); }
+    else if (rnd <= 30 && rnd > 18) { gainMineItem("Agate", 1); }
+    else if (rnd <= 18 && rnd > 9) { gainMineItem("Peridot", 1); }
+    else if (rnd <= 9 && rnd > 3) { gainMineItem("Malachite", 1); }
+    else { gainMineItem("Amber", 1); }
+    startMiningCooldown(10, 1);
+    updateEventLog();
+    updateMiningResourceDisplay();
+    updateMiningExp();
+});
+mBtn3.addEventListener("click", function() {
+    let rnd = Math.random() * 100;
+    rnd = Math.floor(rnd) + 1;
+    eventLogTxt.shift();
+    if (rnd > 80) { gainMineItem("Tin", 0); }
+    else if (rnd <= 80 && rnd > 62) { gainMineItem("Copper", 0); }
+    else if (rnd <= 62 && rnd > 47) { gainMineItem("Zinc", 0); }
+    else if (rnd <= 47 && rnd > 37) { gainMineItem("Nickel", 0); }
+    else if (rnd <= 37 && rnd > 30) { gainMineItem("Lead", 0); }
+    else if (rnd <= 30 && rnd > 20) { gainMineItem("Agate", 1); }
+    else if (rnd <= 20 && rnd > 12) { gainMineItem("Peridot", 1); }
+    else if (rnd <= 12 && rnd > 6) { gainMineItem("Malachite", 1); }
+    else if (rnd <= 6 && rnd > 2) { gainMineItem("Amber", 1); }
+    else { gainMineItem("Garnet", 1); }
+    startMiningCooldown(15, 2);
+    updateEventLog();
+    updateMiningResourceDisplay();
+    updateMiningExp();
+});
+mBtn4.addEventListener("click", function() {
+    let rnd = Math.random() * 100;
+    rnd = Math.floor(rnd) + 1;
+    eventLogTxt.shift();
+    if (rnd > 80) { gainMineItem("Copper", 0); }
+    else if (rnd <= 80 && rnd > 62) { gainMineItem("Zinc", 0); }
+    else if (rnd <= 62 && rnd > 47) { gainMineItem("Nickel", 0); }
+    else if (rnd <= 47 && rnd > 37) { gainMineItem("Lead", 0); }
+    else if (rnd <= 37 && rnd > 30) { gainMineItem("Cobalt", 0); }
+    else if (rnd <= 30 && rnd > 20) { gainMineItem("Peridot", 1); }
+    else if (rnd <= 20 && rnd > 12) { gainMineItem("Malachite", 1); }
+    else if (rnd <= 12 && rnd > 6) { gainMineItem("Amber", 1); }
+    else if (rnd <= 6 && rnd > 2) { gainMineItem("Garnet", 1); }
+    else { gainMineItem("Aquamarine", 1); }
+    startMiningCooldown(20, 3);
+    updateEventLog();
+    updateMiningResourceDisplay();
+    updateMiningExp();
+});
+mBtn5.addEventListener("click", function() {
+    let rnd = Math.random() * 100;
+    rnd = Math.floor(rnd) + 1;
+    eventLogTxt.shift();
+    if (rnd > 80) { gainMineItem("Zinc", 0); }
+    else if (rnd <= 80 && rnd > 62) { gainMineItem("Nickel", 0); }
+    else if (rnd <= 62 && rnd > 47) { gainMineItem("Lead", 0); }
+    else if (rnd <= 47 && rnd > 37) { gainMineItem("Cobalt", 0); }
+    else if (rnd <= 37 && rnd > 30) { gainMineItem("Titanium", 0); }
+    else if (rnd <= 30 && rnd > 20) { gainMineItem("Malachite", 1); }
+    else if (rnd <= 20 && rnd > 12) { gainMineItem("Amber", 1); }
+    else if (rnd <= 12 && rnd > 6) { gainMineItem("Garnet", 1); }
+    else if (rnd <= 6 && rnd > 2) { gainMineItem("Aquamarine", 1); }
+    else { gainMineItem("Topaz", 1); }
+    startMiningCooldown(25, 4);
+    updateEventLog();
+    updateMiningResourceDisplay();
+    updateMiningExp();
+});
+mBtn6.addEventListener("click", function() {
+    let rnd = Math.random() * 100;
+    rnd = Math.floor(rnd) + 1;
+    eventLogTxt.shift();
+    if (rnd > 80) { gainMineItem("Zinc", 0); }
+    else if (rnd <= 80 && rnd > 65) { gainMineItem("Nickel", 0); }
+    else if (rnd <= 65 && rnd > 52) { gainMineItem("Lead", 0); }
+    else if (rnd <= 52 && rnd > 40) { gainMineItem("Cobalt", 0); }
+    else if (rnd <= 40 && rnd > 30) { gainMineItem("Titanium", 0); }
+    else if (rnd <= 30 && rnd > 21) { gainMineItem("Tungsten", 0); }
+    else if (rnd <= 21 && rnd > 15) { gainMineItem("Malachite", 1); }
+    else if (rnd <= 15 && rnd > 10) { gainMineItem("Amber", 1); }
+    else if (rnd <= 10 && rnd > 6) { gainMineItem("Garnet", 1); }
+    else if (rnd <= 6 && rnd > 3) { gainMineItem("Aquamarine", 1); }
+    else if (rnd <= 3 && rnd > 1) { gainMineItem("Topaz", 1); }
+    else { gainMineItem("Amethyst", 1); }
+    startMiningCooldown(30, 5);
+    updateEventLog();
+    updateMiningResourceDisplay();
+    updateMiningExp();
+});
+mBtn7.addEventListener("click", function() {
+    let rnd = Math.random() * 100;
+    rnd = Math.floor(rnd) + 1;
+    eventLogTxt.shift();
+    if (rnd > 80) { gainMineItem("Nickel", 0); }
+    else if (rnd <= 80 && rnd > 65) { gainMineItem("Lead", 0); }
+    else if (rnd <= 65 && rnd > 52) { gainMineItem("Cobalt", 0); }
+    else if (rnd <= 52 && rnd > 40) { gainMineItem("Titanium", 0); }
+    else if (rnd <= 40 && rnd > 30) { gainMineItem("Tungsten", 0); }
+    else if (rnd <= 30 && rnd > 21) { gainMineItem("Silver", 0); }
+    else if (rnd <= 21 && rnd > 15) { gainMineItem("Amber", 1); }
+    else if (rnd <= 15 && rnd > 10) { gainMineItem("Garnet", 1); }
+    else if (rnd <= 10 && rnd > 6) { gainMineItem("Aquamarine", 1); }
+    else if (rnd <= 6 && rnd > 3) { gainMineItem("Topaz", 1); }
+    else if (rnd <= 3 && rnd > 1) { gainMineItem("Amethyst", 1); }
+    else { gainMineItem("Sapphire", 1); }
+    startMiningCooldown(35, 6);
+    updateEventLog();
+    updateMiningResourceDisplay();
+    updateMiningExp();
+});
+mBtn8.addEventListener("click", function() {
+    let rnd = Math.random() * 100;
+    rnd = Math.floor(rnd) + 1;
+    eventLogTxt.shift();
+    if (rnd > 80) { gainMineItem("Lead", 0); }
+    else if (rnd <= 80 && rnd > 65) { gainMineItem("Cobalt", 0); }
+    else if (rnd <= 65 && rnd > 52) { gainMineItem("Titanium", 0); }
+    else if (rnd <= 52 && rnd > 40) { gainMineItem("Tungsten", 0); }
+    else if (rnd <= 40 && rnd > 30) { gainMineItem("Silver", 0); }
+    else if (rnd <= 30 && rnd > 21) { gainMineItem("Gold", 0); }
+    else if (rnd <= 21 && rnd > 15) { gainMineItem("Garnet", 1); }
+    else if (rnd <= 15 && rnd > 10) { gainMineItem("Aquamarine", 1); }
+    else if (rnd <= 10 && rnd > 6) { gainMineItem("Topaz", 1); }
+    else if (rnd <= 6 && rnd > 3) { gainMineItem("Amethyst", 1); }
+    else if (rnd <= 3 && rnd > 1) { gainMineItem("Sapphire", 1); }
+    else { gainMineItem("Ruby", 1); }
+    startMiningCooldown(40, 7);
+    updateEventLog();
+    updateMiningResourceDisplay();
+    updateMiningExp();
+});
+mBtn9.addEventListener("click", function() {
+    let rnd = Math.random() * 100;
+    rnd = Math.floor(rnd) + 1;
+    eventLogTxt.shift();
+    if (rnd > 80) { gainMineItem("Cobalt", 0); }
+    else if (rnd <= 80 && rnd > 65) { gainMineItem("Titanium", 0); }
+    else if (rnd <= 65 && rnd > 52) { gainMineItem("Tungsten", 0); }
+    else if (rnd <= 52 && rnd > 40) { gainMineItem("Silver", 0); }
+    else if (rnd <= 40 && rnd > 30) { gainMineItem("Gold", 0); }
+    else if (rnd <= 30 && rnd > 21) { gainMineItem("Platinum", 0); }
+    else if (rnd <= 21 && rnd > 15) { gainMineItem("Aquamarine", 1); }
+    else if (rnd <= 15 && rnd > 10) { gainMineItem("Topaz", 1); }
+    else if (rnd <= 10 && rnd > 6) { gainMineItem("Amethyst", 1); }
+    else if (rnd <= 6 && rnd > 3) { gainMineItem("Sapphire", 1); }
+    else if (rnd <= 3 && rnd > 1) { gainMineItem("Ruby", 1); }
+    else { gainMineItem("Emerald", 1); }
+    startMiningCooldown(45, 8);
+    updateEventLog();
+    updateMiningResourceDisplay();
+    updateMiningExp();
+});
+mBtn10.addEventListener("click", function() {
+    let rnd = (Math.random() * 100);
+    eventLogTxt.shift();
+    if (rnd > 80) { gainMineItem("Titanium", 0); }
+    else if (rnd <= 80 && rnd > 65) { gainMineItem("Tungsten", 0); }
+    else if (rnd <= 65 && rnd > 52) { gainMineItem("Silver", 0); }
+    else if (rnd <= 52 && rnd > 40) { gainMineItem("Gold", 0); }
+    else if (rnd <= 40 && rnd > 30) { gainMineItem("Platinum", 0); }
+    else if (rnd <= 30 && rnd > 21) { gainMineItem("Iridium", 0); }
+    else if (rnd <= 21 && rnd > 15) { gainMineItem("Topaz", 1); }
+    else if (rnd <= 15 && rnd > 10) { gainMineItem("Amethyst", 1); }
+    else if (rnd <= 10 && rnd > 6) { gainMineItem("Sapphire", 1); }
+    else if (rnd <= 6 && rnd > 3) { gainMineItem("Ruby", 1); }
+    else if (rnd <= 3 && rnd > 0.5) { gainMineItem("Emerald", 1); }
+    else { gainMineItem("Diamond", 1); }
+    startMiningCooldown(50, 9);
     updateEventLog();
     updateMiningResourceDisplay();
     updateMiningExp();
@@ -162,218 +304,395 @@ function startMiningCooldown(CD, type) {
     btn.style.backgroundColor = "rgb(36, 61, 61)";
     btn.style.color = "white";
     btn.textContent = `Resting for ${cd} sec`;
+    btn.style.cursor = "not-allowed";
     let state = {CD: cd};
-    localStorage.setItem(key, JSON.stringify(state));
+    if (!isResetting) {
+        localStorage.setItem(key, JSON.stringify(state));
+    }
     const interval = setInterval(function() {
+        if (isResetting) {
+            clearInterval(interval);
+            return;
+        }
         cd--;
         if (cd <= 0) {
             btn.disabled = false;
             btn.style.backgroundColor = "lightblue";
             btn.style.color = "black";
             btn.textContent = label;
+            btn.style.cursor = "pointer";
             clearInterval(interval); 
             localStorage.removeItem(key);
         } else {
             btn.textContent = `Resting for ${cd} sec`;
             state.CD = cd;
-            localStorage.setItem(key, JSON.stringify(state));
+            if (!isResetting) {
+                localStorage.setItem(key, JSON.stringify(state));
+            }
         }
     }, 1000); 
 }
 function loadMineButtons() {
-    const m1StateCD = localStorage.getItem("m1State");
-    const m2StateCD = localStorage.getItem("m2State");
-    const m3StateCD = localStorage.getItem("m3State");
-    const m4StateCD = localStorage.getItem("m4State");
-    const m5StateCD = localStorage.getItem("m5State");
-    const m6StateCD = localStorage.getItem("m6State");
-    const m7StateCD = localStorage.getItem("m7State");
-    const m8StateCD = localStorage.getItem("m8State");
-    const m9StateCD = localStorage.getItem("m9State");
-    const m10StateCD = localStorage.getItem("m10State");
-    if (m1StateCD) {
-        const m1Status = JSON.parse(m1StateCD);
-        startMiningCooldown(Number(m1Status.CD), 0);
-    }
-    if (m2StateCD) {
-        const m2Status = JSON.parse(m2StateCD);
-        startMiningCooldown(Number(m2Status.CD), 1);
-    }
-    if (m3StateCD) {
-        const m3Status = JSON.parse(m3StateCD);
-        startMiningCooldown(Number(m3Status.CD), 2);
-    }
-    if (m4StateCD) {
-        const m4Status = JSON.parse(m4StateCD);
-        startMiningCooldown(Number(m4Status.CD), 3);
-    }
-    if (m5StateCD) {
-        const m5Status = JSON.parse(m5StateCD);
-        startMiningCooldown(Number(m5Status.CD), 4);
-    }
-    if (m6StateCD) {
-        const m6Status = JSON.parse(m6StateCD);
-        startMiningCooldown(Number(m6Status.CD), 5);
-    }
-    if (m7StateCD) {
-        const m7Status = JSON.parse(m7StateCD);
-        startMiningCooldown(Number(m7Status.CD), 6);
-    }
-    if (m8StateCD) {
-        const m8Status = JSON.parse(m8StateCD);
-        startMiningCooldown(Number(m8Status.CD), 7);
-    }
-    if (m9StateCD) {
-        const m9Status = JSON.parse(m9StateCD);
-        startMiningCooldown(Number(m9Status.CD), 8);
-    }
-    if (m10StateCD) {
-        const m10Status = JSON.parse(m10StateCD);
-        startMiningCooldown(Number(m10Status.CD), 9);
+    for (let i = 1; i <= 10; i++) {
+        const stateCD = localStorage.getItem(`m${i}State`);
+        if (stateCD) {
+            const status = JSON.parse(stateCD);
+            startMiningCooldown(Number(status.CD), i - 1);
+        }
     }
 }
 function gainMineItem(item, num) {
-    if (num == 0) { eventLogTxt.push(`You obtained ${item} Ore`); }
+    const pickKey = item.toLowerCase() + "Pick";
+    if (num == 0) {
+        if (picks[pickKey]) {
+            eventLogTxt.push(`You obtained 2 ${item} Ores`);
+        }
+        else {eventLogTxt.push(`You obtained ${item} Ore`);}
+    }
     else { eventLogTxt.push(`You obtained ${item}`); }
     miningData[item]++;
     miningLevelData.miningExp += miningExpData[item];
+    if (picks[pickKey]) {
+        miningData[item]++;
+        miningLevelData.miningExp += miningExpData[item];
+    }
 }
 function updateEventLog() {
-    eventLog10.textContent = eventLogTxt[0];
-    eventLog9.textContent = eventLogTxt[1];
-    eventLog8.textContent = eventLogTxt[2];
-    eventLog7.textContent = eventLogTxt[3];
-    eventLog6.textContent = eventLogTxt[4];
-    eventLog5.textContent = eventLogTxt[5];
-    eventLog4.textContent = eventLogTxt[6];
-    eventLog3.textContent = eventLogTxt[7];
-    eventLog2.textContent = eventLogTxt[8];
-    eventLog1.textContent = eventLogTxt[9];
+    for (let i = 0; i < eventLogTxt.length; i++) {
+        const eventLogElement = document.getElementById(`eventLog${10 - i}`);
+        if (eventLogElement) {
+            eventLogElement.textContent = eventLogTxt[i];
+        }
+    }
 }
 function updateMiningResourceDisplay() {
-    tinTxt.textContent = miningData.Tin;
-    copperTxt.textContent = miningData.Copper;
-    zincTxt.textContent = miningData.Zinc;
-    nickelTxt.textContent = miningData.Nickel;
-    leadTxt.textContent = miningData.Lead;
-    cobaltTxt.textContent = miningData.Cobalt;
-    titaniumTxt.textContent = miningData.Titanium;
-    tungstenTxt.textContent = miningData.Tungsten;
-    silverTxt.textContent = miningData.Silver;
-    goldTxt.textContent = miningData.Gold;
-    platinumTxt.textContent = miningData.Platinum;
-    iridiumTxt.textContent = miningData.Iridium;
-    agateTxt.textContent = miningData.Agate;
-    peridotTxt.textContent = miningData.Peridot;
-    malachiteTxt.textContent = miningData.Malachite;
-    amberTxt.textContent = miningData.Amber;
-    garnetTxt.textContent = miningData.Garnet;
-    aquamarineTxt.textContent = miningData.Aquamarine;
-    topazTxt.textContent = miningData.Topaz;
-    amethystTxt.textContent = miningData.Amethyst;
-    sapphireTxt.textContent = miningData.Sapphire;
-    rubyTxt.textContent = miningData.Ruby;
-    emeraldTxt.textContent = miningData.Emerald;
-    diamondTxt.textContent = miningData.Diamond;
+    Object.keys(miningData).forEach(material => {
+        const elementId = `${material.toLowerCase()}Text`;
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.textContent = miningData[material];
+        }
+    });
 }
 function updateMiningExp() {
     if (miningLevelData.miningExp >= miningLevelData.miningNeededXP) {
-        let tmp = miningLevelData.miningExp - miningLevelData.miningNeededXP;
-        miningLevelData.miningExp = tmp;
+        miningLevelData.miningExp -= miningLevelData.miningNeededXP;
         miningLevelData.miningLevel++;
-        miningLevelData.miningNeededXP += 100;
+        miningLevelData.miningNeededXP += 500;
         checkMiningUnlocks(miningLevelData.miningLevel);
     }
     currentMiningExpTxt.textContent = miningLevelData.miningExp;
-    neededMiningExpTxt.textContent = (1000 + (100*miningLevelData.miningLevel));
+    neededMiningExpTxt.textContent = (1000 + (500*miningLevelData.miningLevel));
     currentMiningLevelTxt.textContent = miningLevelData.miningLevel;
-
     let percentage = (miningLevelData.miningExp / miningLevelData.miningNeededXP);
     currentMiningExpProgress.style.width = (percentage*100) + '%';
 }
 function checkMiningUnlocks(lvl) {
-    if (lvl >= 5 && !miningUnlocks.u1) {
-        nextMiningUnlockTxt.textContent = "Next Unlock: Level 10";
-        mBtn2.style.visibility = "visible";
-        document.getElementById("nickelRow").style.removeProperty("display");
-        document.getElementById("amberRow").style.removeProperty("display");
-        document.getElementById("moreMInfo1").style.removeProperty("display");
-        document.getElementById("moreMInfoT1").style.removeProperty("display");
-        miningUnlocks.u1 = true;
+    const unlocks = [
+        { level: 5, unlockKey: 'u1', nextLevel: 'Level 10', button: mBtn2, buttons: ['nickelPickBtn', 'amberNeckBtn'], rows: ['nickelRow', 'amberRow'], info: ['moreMInfo1', 'moreMInfoT1'] },
+        { level: 10, unlockKey: 'u2', nextLevel: 'Level 15', button: mBtn3, buttons: ['leadPickBtn', 'garnetNeckBtn'], rows: ['leadRow', 'garnetRow'], info: ['moreMInfo2', 'moreMInfoT2'] },
+        { level: 15, unlockKey: 'u3', nextLevel: 'Level 20', button: mBtn4, buttons: ['cobaltPickBtn', 'aquamarineNeckBtn'], rows: ['cobaltRow', 'aquamarineRow'], info: ['moreMInfo3', 'moreMInfoT3'] },
+        { level: 20, unlockKey: 'u4', nextLevel: 'Level 30', button: mBtn5, buttons: ['titaniumPickBtn', 'topazNeckBtn'], rows: ['titaniumRow', 'topazRow'], info: ['moreMInfo4', 'moreMInfoT4'] },
+        { level: 30, unlockKey: 'u5', nextLevel: 'Level 40', button: mBtn6, buttons: ['tungstenPickBtn', 'amethystNeckBtn'], rows: ['tungstenRow', 'amethystRow'], info: ['moreMInfo5', 'moreMInfoT5'] },
+        { level: 40, unlockKey: 'u6', nextLevel: 'Level 50', button: mBtn7, buttons: ['silverPickBtn', 'sapphireNeckBtn'], rows: ['silverRow', 'sapphireRow'], info: ['moreMInfo6', 'moreMInfoT6'] },
+        { level: 50, unlockKey: 'u7', nextLevel: 'Level 75', button: mBtn8, buttons: ['goldPickBtn', 'rubyNeckBtn'], rows: ['goldRow', 'rubyRow'], info: ['moreMInfo7', 'moreMInfoT7'] },
+        { level: 75, unlockKey: 'u8', nextLevel: 'Level 100', button: mBtn9, buttons: ['platinumPickBtn', 'emeraldNeckBtn'], rows: ['platinumRow', 'emeraldRow'], info: ['moreMInfo8', 'moreMInfoT8'] },
+        { level: 100, unlockKey: 'u9', nextLevel: 'Never', button: mBtn10, buttons: ['iridiumPickBtn', 'diamondNeckBtn'], rows: ['iridiumRow', 'diamondRow'], info: ['moreMInfo9', 'moreMInfoT9'] }
+    ];
+    unlocks.forEach(unlock => {
+        if (lvl >= unlock.level && !miningUnlocks[unlock.unlockKey]) {
+            nextMiningUnlockTxt.textContent = `Next Unlock: ${unlock.nextLevel}`;
+            unlock.button.style.visibility = "visible";
+            unlock.buttons.forEach(btnId => {
+                document.getElementById(btnId).style.removeProperty("display");
+            });
+            unlock.rows.forEach(rowId => {
+                document.getElementById(rowId).style.removeProperty("display");
+            });
+            unlock.info.forEach(infoId => {
+                document.getElementById(infoId).style.removeProperty("display");
+            });
+            miningUnlocks[unlock.unlockKey] = true;
+        }
+    });
+}
+function resetMiningUnlocksForLoad(lvl) {
+    if (lvl >= 5 && miningUnlocks.u1) {miningUnlocks.u1 = false;}
+    if (lvl >= 10 && miningUnlocks.u2) {miningUnlocks.u2 = false;}
+    if (lvl >= 15 && miningUnlocks.u3) {miningUnlocks.u3 = false;}
+    if (lvl >= 20 && miningUnlocks.u4) {miningUnlocks.u4 = false;}
+    if (lvl >= 30 && miningUnlocks.u5) {miningUnlocks.u5 = false;}
+    if (lvl >= 40 && miningUnlocks.u6) {miningUnlocks.u6 = false;}
+    if (lvl >= 50 && miningUnlocks.u7) {miningUnlocks.u7 = false;}
+    if (lvl >= 75 && miningUnlocks.u8) {miningUnlocks.u8 = false;}
+    if (lvl >= 100 && miningUnlocks.u9) {miningUnlocks.u9 = false;}
+}
+
+/* FORGE STUFF */
+const items = {
+    tinPick: {
+        name: "Tin Pickaxe",
+        description: "Allows you to gather 2 tin ores at once!",
+        material: ["tin","agate"],
+        price: ["10","1"]
+    },
+    copperPick: {
+        name: "Copper Pickaxe",
+        description: "Allows you to gather 2 copper ores at once!",
+        material: ["copper","peridot"],
+        price: ["10","1"]
+    },
+    zincPick: {
+        name: "Zinc Pickaxe",
+        description: "Allows you to gather 2 zinc ores at once!",
+        material: ["zinc","malachite"],
+        price: ["10","1"]
+    },
+    nickelPick: {
+        name: "Nickel Pickaxe",
+        description: "Allows you to gather 2 nickel ores at once!",
+        material: ["nickel","amber"],
+        price: ["10","1"]
+    },
+    leadPick: {
+        name: "Lead Pickaxe",
+        description: "Allows you to gather 2 lead ores at once!",
+        material: ["lead","garnet"],
+        price: ["10","1"]
+    },
+    cobaltPick: {
+        name: "Cobalt Pickaxe",
+        description: "Allows you to gather 2 cobalt ores at once!",
+        material: ["cobalt","aquamarine"],
+        price: ["10","1"]
+    },
+    titaniumPick: {
+        name: "Titanium Pickaxe",
+        description: "Allows you to gather 2 titanium ores at once!",
+        material: ["titanium","topaz"],
+        price: ["10","1"]
+    },
+    tungstenPick: {
+        name: "Tungsten Pickaxe",
+        description: "Allows you to gather 2 tungsten ores at once!",
+        material: ["tungsten","amethyst"],
+        price: ["10","1"]
+    },
+    silverPick: {
+        name: "Silver Pickaxe",
+        description: "Allows you to gather 2 silver ores at once!",
+        material: ["silver","sapphire"],
+        price: ["10","1"]
+    },
+    goldPick: {
+        name: "Gold Pickaxe",
+        description: "Allows you to gather 2 gold ores at once!",
+        material: ["gold","ruby"],
+        price: ["10","1"]
+    },
+    platinumPick: {
+        name: "Platinum Pickaxe",
+        description: "Allows you to gather 2 platinum ores at once!",
+        material: ["platinum","emerald"],
+        price: ["10","1"]
+    },
+    iridiumPick: {
+        name: "Iridium Pickaxe",
+        description: "Allows you to gather 2 iridium ores at once!",
+        material: ["iridium","diamond"],
+        price: ["10","1"]
+    },
+    agateNeck: {
+        name: "Agate Necklace",
+        description: "Doubles all gem exp gains!",
+        material: ["tin","agate"],
+        price: ["15","3"]
+    },
+    peridotNeck: {
+        name: "Peridot Necklace",
+        description: "Doubles all gem exp gains!",
+        material: ["copper","peridot"],
+        price: ["15","3"]
+    },
+    malachiteNeck: {
+        name: "Malachite Necklace",
+        description: "Doubles all gem exp gains!",
+        material: ["zinc","malachite"],
+        price: ["15","3"]
+    },
+    amberNeck: {
+        name: "Amber Necklace",
+        description: "Doubles all gem exp gains!",
+        material: ["nickel","amber"],
+        price: ["15","3"]
+    },
+    garnetNeck: {
+        name: "Garnet Necklace",
+        description: "Doubles all gem exp gains!",
+        material: ["lead","garnet"],
+        price: ["15","3"]
+    },
+    aquamarineNeck: {
+        name: "Aquamarine Necklace",
+        description: "Doubles all gem exp gains!",
+        material: ["cobalt","aquamarine"],
+        price: ["15","3"]
+    },
+    topazNeck: {
+        name: "Topaz Necklace",
+        description: "Doubles all gem exp gains!",
+        material: ["titanium","topaz"],
+        price: ["15","3"]
+    },
+    amethystNeck: {
+        name: "Amethyst Necklace",
+        description: "Doubles all gem exp gains!",
+        material: ["tungsten","amethyst"],
+        price: ["15","3"]
+    },
+    sapphireNeck: {
+        name: "Sapphire Necklace",
+        description: "Doubles all gem exp gains!",
+        material: ["silver","sapphire"],
+        price: ["15","3"]
+    },
+    rubyNeck: {
+        name: "Ruby Necklace",
+        description: "Doubles all gem exp gains!",
+        material: ["gold","ruby"],
+        price: ["15","3"]
+    },
+    emeraldNeck: {
+        name: "Emerald Necklace",
+        description: "Doubles all gem exp gains!",
+        material: ["platinum","emerald"],
+        price: ["15","3"]
+    },
+    diamondNeck: {
+        name: "Diamond Necklace",
+        description: "Doubles all gem exp gains!",
+        material: ["iridium","diamond"],
+        price: ["15","3"]
     }
-    if (lvl >= 10 && !miningUnlocks.u2) {
-        nextMiningUnlockTxt.textContent = "Next Unlock: Level 15";
-        mBtn3.style.visibility = "visible";
-        document.getElementById("leadRow").style.removeProperty("display");
-        document.getElementById("garnetRow").style.removeProperty("display");
-        document.getElementById("moreMInfo2").style.removeProperty("display");
-        document.getElementById("moreMInfoT2").style.removeProperty("display");
-        miningUnlocks.u2 = true;
+};
+let picks = {
+    tinPick: false,
+    copperPick: false,
+    zincPick: false,
+    nickelPick: false,
+    leadPick: false,
+    cobaltPick: false,
+    titaniumPick: false,
+    tungstenPick: false,
+    silverPick: false,
+    goldPick: false,
+    platinumPick: false,
+    iridiumPick: false
+};
+let necks = {
+    agateNeck: false,
+    peridotNeck: false,
+    malachiteNeck: false,
+    amberNeck: false,
+    garnetNeck: false,
+    aquamarineNeck: false,
+    topazNeck: false,
+    amethystNeck: false,
+    sapphireNeck: false,
+    rubyNeck: false,
+    emeraldNeck: false,
+    diamondNeck: false
+};
+function selectItem(itemId) {
+    resetMineShopCosts();
+    const item = items[itemId];
+    document.getElementById('item-name').textContent = item.name;
+    document.getElementById('item-description').textContent = item.description;
+    item.material.forEach((mat, index) => {
+        const price = item.price[index];
+        const rowId = mat + 'ShopRow';
+        document.getElementById(mat + 'CostTxt').textContent = price;
+        document.getElementById(rowId).style.display = 'table-row';
+    });
+    document.getElementById('forgeButton').setAttribute('data-item', itemId);
+}
+function forgeItem() {
+    const selectedItem = document.getElementById('forgeButton').getAttribute('data-item');
+    const item = items[selectedItem];
+    if (selectedItem) {
+        let canAfford = true;
+        for (let i = 0; i < item.material.length; i++) {
+            const check = item.material[i].charAt(0).toUpperCase() + item.material[i].slice(1).toLowerCase();
+            if (miningData[check] < item.price[i]) {
+                canAfford = false;
+                break;
+            }
+        }
+        if (canAfford) {
+            for (let i = 0; i < item.material.length; i++) {
+                const check = item.material[i].charAt(0).toUpperCase() + item.material[i].slice(1).toLowerCase();
+                miningData[check] -= item.price[i];
+            }
+            alert(`You have forged the ${item.name}!`);
+            updateForgeItems(selectedItem);
+            updateMiningResourceDisplay();
+            updateForgeTxt();
+        } else {
+            alert("Can't afford!");
+        }
     }
-    if (lvl >= 15 && !miningUnlocks.u3) {
-        nextMiningUnlockTxt.textContent = "Next Unlock: Level 20";
-        mBtn4.style.visibility = "visible";
-        document.getElementById("cobaltRow").style.removeProperty("display");
-        document.getElementById("aquamarineRow").style.removeProperty("display");
-        document.getElementById("moreMInfo3").style.removeProperty("display");
-        document.getElementById("moreMInfoT3").style.removeProperty("display");
-        miningUnlocks.u3 = true;
-    }
-    if (lvl >= 20 && !miningUnlocks.u4) {
-        nextMiningUnlockTxt.textContent = "Next Unlock: Level 30";
-        mBtn5.style.visibility = "visible";
-        document.getElementById("titaniumRow").style.removeProperty("display");
-        document.getElementById("topazRow").style.removeProperty("display");
-        document.getElementById("moreMInfo4").style.removeProperty("display");
-        document.getElementById("moreMInfoT4").style.removeProperty("display");
-        miningUnlocks.u4 = true;
-    }
-    if (lvl >= 30 && !miningUnlocks.u5) {
-        nextMiningUnlockTxt.textContent = "Next Unlock: Level 40";
-        mBtn6.style.visibility = "visible";
-        document.getElementById("tungstenRow").style.removeProperty("display");
-        document.getElementById("amethystRow").style.removeProperty("display");
-        document.getElementById("moreMInfo5").style.removeProperty("display");
-        document.getElementById("moreMInfoT5").style.removeProperty("display");
-        miningUnlocks.u5 = true;
-    }
-    if (lvl >= 40 && !miningUnlocks.u6) {
-        nextMiningUnlockTxt.textContent = "Next Unlock: Level 50";
-        mBtn7.style.visibility = "visible";
-        document.getElementById("silverRow").style.removeProperty("display");
-        document.getElementById("sapphireRow").style.removeProperty("display");
-        document.getElementById("moreMInfo6").style.removeProperty("display");
-        document.getElementById("moreMInfoT6").style.removeProperty("display");
-        miningUnlocks.u6 = true;
-    }
-    if (lvl >= 50 && !miningUnlocks.u7) {
-        nextMiningUnlockTxt.textContent = "Next Unlock: Level 75";
-        mBtn8.style.visibility = "visible";
-        document.getElementById("goldRow").style.removeProperty("display");
-        document.getElementById("rubyRow").style.removeProperty("display");
-        document.getElementById("moreMInfo7").style.removeProperty("display");
-        document.getElementById("moreMInfoT7").style.removeProperty("display");
-        miningUnlocks.u7 = true;
-    }
-    if (lvl >= 75 && !miningUnlocks.u8) {
-        nextMiningUnlockTxt.textContent = "Next Unlock: Level 100";
-        mBtn9.style.visibility = "visible";
-        document.getElementById("platinumRow").style.removeProperty("display");
-        document.getElementById("emeraldRow").style.removeProperty("display");
-        document.getElementById("moreMInfo8").style.removeProperty("display");
-        document.getElementById("moreMInfoT8").style.removeProperty("display");
-        miningUnlocks.u8 = true;
-    }
-    if (lvl >= 100 && !miningUnlocks.u9) {
-        nextMiningUnlockTxt.textContent = "Next Unlock: Never";
-        mBtn10.style.visibility = "visible";
-        document.getElementById("iridiumRow").style.removeProperty("display");
-        document.getElementById("diamondRow").style.removeProperty("display");
-        document.getElementById("moreMInfo9").style.removeProperty("display");
-        document.getElementById("moreMInfoT9").style.removeProperty("display");
-        miningUnlocks.u9 = true;
+    else {alert("Nothing selected!");}
+    document.getElementById('item-name').textContent = "Select an item";
+    document.getElementById('item-description').textContent = "Description will appear here.";
+    document.getElementById('forgeButton').removeAttribute('data-item');
+    resetMineShopCosts();
+}
+function resetMineShopCosts() {
+    const rows = document.querySelectorAll('.mineShopRow');
+    rows.forEach(row => {
+        row.style.display = 'none';
+    });
+}
+function updateForgeTxt() {
+    for (const material in miningData) {
+        if (miningData.hasOwnProperty(material)) {
+            const elementId = `shop${material}Txt`;
+            const materialAmount = miningData[material];
+            const element = document.getElementById(elementId);
+            if (element) { element.textContent = materialAmount; }
+        }
     }
 }
+function updateForgeItems(item) {
+    document.getElementById(`${item}Btn`).style.display = "none";
+    if (picks.hasOwnProperty(item)) { picks[item] = true; } 
+    else if (necks.hasOwnProperty(item)) {
+        necks[item] = true;
+        let keys = Object.keys(miningExpData);
+        let midpoint = Math.floor(keys.length / 2);
+        for (let i = midpoint; i < keys.length; i++) {
+            let key = keys[i];
+            if (miningExpData.hasOwnProperty(key)) {
+                miningExpData[key] += miningExpData[key];
+            }
+        }
+    }
+}
+function loadPickButtons() {
+    for (let pick in picks) {
+        if (picks[pick]) {
+            document.getElementById(pick.replace('Pick', 'PickBtn')).style.display = 'none';
+        }
+    }
+}
+function loadNeckButtons() {
+    for (let neck in necks) {
+        if (necks[neck]) {
+            document.getElementById(neck.replace('Neck', 'NeckBtn')).style.display = 'none';
+        }
+    }
+}
+
 /* MINING INFO MODAL */
 const miningModal = document.getElementById("myMiningModal");
 const openModalBtn1 = document.getElementById("openModalBtn1");
@@ -410,12 +729,16 @@ function saveGame() {
     localStorage.setItem("miningLevelData", JSON.stringify(miningLevelData));
     localStorage.setItem("miningUnlocks", JSON.stringify(miningUnlocks));
     localStorage.setItem("miningExpData", JSON.stringify(miningExpData));
+    localStorage.setItem("pickData", JSON.stringify(picks));
+    localStorage.setItem("neckData", JSON.stringify(necks));
 }
 function loadGame() {
     const savedMiningData = localStorage.getItem("miningData");
     const savedMiningLevelData = localStorage.getItem("miningLevelData");
     const savedMiningUnlocks = localStorage.getItem("miningUnlocks");
     const savedMiningExpData = localStorage.getItem("miningExpData");
+    const savedPicks = localStorage.getItem("pickData");
+    const savedNecks = localStorage.getItem("neckData");
     if (savedMiningData) {
         miningData = JSON.parse(savedMiningData);
     }
@@ -426,16 +749,34 @@ function loadGame() {
         miningUnlocks = JSON.parse(savedMiningUnlocks);
     }
     if (savedMiningExpData) {
-        miningUnlocks = JSON.parse(savedMiningExpData);
+        miningExpData = JSON.parse(savedMiningExpData);
+    }
+    if (savedPicks) {
+        picks = JSON.parse(savedPicks);
+    }
+    if (savedNecks) {
+        necks = JSON.parse(savedNecks);
     }
     updateMiningResourceDisplay();
     updateMiningExp();
+    resetMiningUnlocksForLoad(miningLevelData.miningLevel);
     checkMiningUnlocks(miningLevelData.miningLevel);
     loadMineButtons();
+    loadPickButtons();
+    loadNeckButtons();
 }
 function resetGame() {
     let confirmed = window.confirm("Are you sure you want to HARD RESET?");
     if (confirmed) {
+        isResetting = true;
+        for (let i = 0; i < 10; i++) {
+            const mStateKey = `m${i+1}State`;
+            const savedState = localStorage.getItem(mStateKey);
+            if (savedState) {
+                const mStatus = JSON.parse(savedState);
+                startMiningCooldown(mStatus.CD, i);
+            }
+        }
         localStorage.clear();
         miningData = {
             Tin: 0,
@@ -505,9 +846,39 @@ function resetGame() {
             u8: false,
             u9: false
         };
+        picks = {
+            tinPick: false,
+            copperPick: false,
+            zincPick: false,
+            nickelPick: false,
+            leadPick: false,
+            cobaltPick: false,
+            titaniumPick: false,
+            tungstenPick: false,
+            silverPick: false,
+            goldPick: false,
+            platinumPick: false,
+            iridiumPick: false
+        };
+        necks = {
+            agateNeck: false,
+            peridotNeck: false,
+            malachiteNeck: false,
+            amberNeck: false,
+            garnetNeck: false,
+            aquamarineNeck: false,
+            topazNeck: false,
+            amethystNeck: false,
+            sapphireNeck: false,
+            rubyNeck: false,
+            emeraldNeck: false,
+            diamondNeck: false
+        };
         saveGame();
         alert("Reset Successful!");
-        window.location.reload();
+        setTimeout(function() {
+            window.location.reload();
+        }, 100);
     } 
     else {
         alert("Smart choice.");

@@ -183,7 +183,19 @@ body {
     height: 30px;
     margin-bottom: 7px;
     display: block;
+    cursor: pointer;
 }
+
+.convertBtn {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: none;
+    background-color: rgb(0, 13, 201);
+    color: white;
+    cursor: pointer;
+}
+
 
 .mineItem {
     line-height: 1.3;
@@ -227,7 +239,7 @@ th {
     border-radius: 4px;
 }
 
-#content3 {
+#content3, #content4, #content5, #content6 {
     background-color: #ffebcc;
     border: 2px solid #ffcc99;
     display: grid;
@@ -235,11 +247,77 @@ th {
     gap: 10px;
 }
 
-#content3 .item {
+#content3 .item, #content4 .item, #content5 .item,  #content6 .item {
     background-color: #ffcc99;
     padding: 10px;
-    text-align: center;
     border-radius: 4px;
+}
+
+.shop-container {
+    width: 100%;
+    margin: 0px auto;
+    text-align: center;
+    display: grid;
+    grid-template-rows: auto auto auto;
+}
+.item-selection {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.item-button {
+    padding: 3px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #90da93;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 110px;
+}
+.item-button:hover {
+    background-color: #45a049;
+}
+.item-details {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    margin: 0 auto;
+}
+.item-details h3 {
+    margin: 0;
+}
+.item-details div {
+    line-height: 1.3;
+}
+.forgeButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #FF6347;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.forgeButton:hover {
+    background-color: #e55347;
+}
+.shopTable {
+    width: 30%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+.shopTable th, .shopTable td {
+    padding: 4px;
+    text-align: right;
+    border: none;
+}
+.shopTable th {
+    background-color: #f2f2f2;
 }
 
 .changelogContainer {
